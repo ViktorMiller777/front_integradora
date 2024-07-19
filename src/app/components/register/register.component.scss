@@ -1,0 +1,33 @@
+.box-form-register{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.form-register{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
+    width: 350px;
+    background: rgb(60, 202, 67);
+    border-radius: 10px;   
+    margin-bottom: 15px;
+}
+.card{
+    background: rgb(60, 202, 67);
+    border-radius: 10px;   
+}
+.box-input{
+    width: 75%;
+}
+.box-btn{
+    width: 75%;
+}
+.btn{
+    width: 100%;
+}
+.error{
+    color: red;
+    font-size: 0.875rem;
+    margin-top: 0.5rem;
+}

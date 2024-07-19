@@ -1,0 +1,28 @@
+.box{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.box-perfil{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 30%;
+    padding-top: 5px;
+    padding-bottom: 13px;
+    
+}
+.btn-perfil{
+    width: 100px;
+    height: 100px;
+    border: none;
+    border-radius: 50%;
+    overflow: hidden;
+    background-color: #ddd;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+p{
+    width: 80%;
+}

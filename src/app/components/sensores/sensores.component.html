@@ -1,0 +1,45 @@
+<div class="container">
+    <nb-card class="box">
+        <nb-card class="table-sensors">
+            <nb-card-header class="header">
+                <h2>Datos de sensores</h2>
+                <nb-select class="select" [(selected)]="selectedDate">
+                    <nb-option value="">Filtrar por fecha</nb-option>
+                    <nb-option value="1">Por Mes</nb-option>
+                    <nb-option value="2">Por Semana</nb-option>
+                    <nb-option value="2">Por Dia</nb-option>
+                </nb-select>
+                <nb-select class="select" [(selected)]="selectedItem">
+                    <nb-option value="">Sensores</nb-option>
+                    <nb-option value="1">Ritmo cardiaco</nb-option>
+                    <nb-option value="2">Temperatura</nb-option>
+                    <nb-option value="3">Pasos</nb-option>
+                    <nb-option value="4">Distancia</nb-option>
+                    <nb-option value="5">Alcoholimetro</nb-option>
+                </nb-select>
+            </nb-card-header>
+            <nb-card-body>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Año</th>
+                            <th>Mes</th>
+                            <th>Dia</th>
+                            <th>Unidad</th>
+                            <th>Valor</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let item of data">
+                            <td>{{item.year}}</td>
+                            <td>{{item.month}}</td>
+                            <td>{{item.day}}</td>
+                            <td>{{item.unit}}</td>
+                            <td>{{item.value}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </nb-card-body>
+        </nb-card>
+    </nb-card>
+</div>

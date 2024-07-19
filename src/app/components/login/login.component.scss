@@ -1,0 +1,39 @@
+.box-form-login{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.form-login{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    height: 400px;
+    width: 350px;
+    border-radius: 10px;
+    background: rgb(60, 202, 67);
+}
+.card-login{
+    border-radius: 10px;
+    background: rgb(60, 202, 67);
+}
+.error {
+    color: red;
+    font-size: 0.875rem;
+    margin-top: 0.5rem;
+}
+.footer-login{
+    display: flex;
+    justify-content: space-between;
+    width: 75%;
+}
+.box-btn{
+    display: flex;
+    width: 75%;
+}
+.btn{
+    width: 100%;
+}
+.box-input{
+    width: 75%;
+}

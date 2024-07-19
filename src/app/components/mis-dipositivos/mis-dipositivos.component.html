@@ -1,0 +1,29 @@
+<div class="box-mis-dispositivos">
+    <nb-card class="box">
+        <nb-card>
+            <nb-card-header><h2 *ngFor="let item of brazalet">Sensores del brazalete {{ item.name }}</h2></nb-card-header>
+            <nb-card-body>
+                <table nbTable>
+                    <thead>
+                        <tr>
+                            <th><button [routerLink]="['/sensor']">Ritmo Cardiaco</button></th>
+                            <th><button [routerLink]="['/sensor']">Temperatura</button></th>
+                            <th><button [routerLink]="['/sensor']">Pasos</button></th>
+                            <th><button [routerLink]="['/sensor']">Distancia</button></th>
+                            <th><button [routerLink]="['/sensor']">Alcoholimetro</button></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let item of data">
+                            <td><button class="sbtn" nbButton [routerLink]="['/sensor']">{{ item.cardiaco }}</button></td>
+                            <td><button class="sbtn" nbButton [routerLink]="['/sensor']">{{ item.temperatura }}</button></td>
+                            <td><button class="sbtn" nbButton [routerLink]="['/sensor']">{{ item.pasos }}</button></td>
+                            <td><button class="sbtn" nbButton [routerLink]="['/sensor']">{{ item.distancia }}</button></td>
+                            <td><button class="sbtn" nbButton [routerLink]="['/sensor']">{{ item.alcohol }}</button></td> 
+                        </tr>
+                    </tbody>
+                </table>
+            </nb-card-body>
+        </nb-card>
+    </nb-card>
+</div>

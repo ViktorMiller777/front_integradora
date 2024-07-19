@@ -1,0 +1,18 @@
+<nb-layout>
+    <nb-layout-header fixed class="bar">
+        <div class="nav-bar">
+            <h1 class="logo"><a [routerLink]="['/']">Logo</a></h1>
+            <div class="nav-actions">
+                <nb-select class="select" placeholder="Select Showcase" [(selected)]="selectedItem">
+                    <nb-option value="">Opciones</nb-option>
+                    <nb-option [routerLink]="['/mis-dispositivos']" value="1">Mis Dispositivos</nb-option>
+                    <nb-option [routerLink]="['/login']" value="2">Iniciar sesion</nb-option>
+                </nb-select>
+            </div>
+        </div>
+    </nb-layout-header>
+    <nb-layout-column class="body">
+        <router-outlet></router-outlet>
+    </nb-layout-column>
+    <nb-layout-footer fixed class="footer">Pagina realizada por el equipo mas pro de 5 cuatri >:D</nb-layout-footer>
+</nb-layout>

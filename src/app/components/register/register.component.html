@@ -1,0 +1,58 @@
+<div class="box-form-register">
+    <nb-card class="card">
+        <form class="form-register" [formGroup]="registerForm" (ngSubmit)="register()">
+            <h1>REGISTRAR</h1>
+            <div class="box-input">
+                <label>Nombre</label>
+                <nb-form-field>
+                    <input placeholder="Ingresa tu nombre" nbInput type="text" formControlName="name">
+                </nb-form-field>
+                <div *ngIf="registerForm.get('name')?.touched && registerForm.get('name')?.invalid" class="error">
+                    Este campo es requerido.
+                </div>
+            </div>
+            <div class="box-input">
+                <label>Apellido</label>
+                <nb-form-field>
+                    <input placeholder="Ingresa tu apellido" nbInput type="text" formControlName="lastname">
+                </nb-form-field>
+                <div *ngIf="registerForm.get('lastname')?.touched && registerForm.get('lastname')?.invalid" class="error">
+                    Este campo es requerido.
+                </div>
+            </div>
+            <div class="box-input">
+                <label>Email</label>
+                <nb-form-field>
+                    <input placeholder="Ingresa tu email" nbInput type="text" formControlName="email">
+                </nb-form-field>
+                <div *ngIf="registerForm.get('email')?.touched && registerForm.get('email')?.invalid" class="error">
+                    Este campo es requerido.
+                </div>
+            </div>
+            <div class="box-input">
+                <label>Nickname</label>
+                <nb-form-field>
+                    <input placeholder="Ingresa tu nickname" nbInput type="text" formControlName="nickname" >
+                </nb-form-field>
+                <div *ngIf="registerForm.get('nickname')?.touched && registerForm.get('nickname')?.invalid" class="error">
+                    Este campo es requerido.
+                </div>
+            </div>
+            <div class="box-input"> 
+                <label>Contraseña</label>
+                <nb-form-field>
+                    <input placeholder="Contraseña min 8 caracteres" nbInput type="password" formControlName="password">
+                </nb-form-field>
+                <div *ngIf="registerForm.get('password')?.touched && registerForm.get('password')?.invalid" class="error">
+                    Este campo es requerido.
+                </div>
+            </div><br>
+            <div class="box-btn">
+                <button class="btn" type="submit" nbButton status="basic">Registrar</button>
+            </div><br>
+            <div>
+                <a [routerLink]="['/login']">¿Ya tienes una cuenta? Inicia sesion.</a>
+            </div>
+        </form>
+    </nb-card>
+</div>

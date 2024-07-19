@@ -1,0 +1,14 @@
+<div class="container">
+    <nb-card class="box">
+        <nb-card-header>
+            <h1>Verificar Codigo</h1>
+        </nb-card-header>
+        <nb-card-body>
+            <form  class="code" [formGroup]="verifyInput" (ngSubmit)="verify()">
+                <p>Ingresa tu codigo de verificacion para poder inicar sesion</p>
+                <input formControlName="code"><br>
+                <button nbButton type="submit" status="success">Confirmar</button>
+            </form>
+        </nb-card-body>
+    </nb-card>
+</div>
