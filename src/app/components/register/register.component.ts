@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { NbToastrService } from '@nebular/theme';
 import { ApiService } from 'src/app/service/api.service';
 
 @Component({
@@ -9,10 +10,10 @@ import { ApiService } from 'src/app/service/api.service';
   styleUrls: ['./register.component.scss']
 })
 export class RegisterComponent {
-
+  isSubmit: boolean = false
   registerForm: FormGroup
 
-  constructor(private apiService:ApiService, private router:Router){
+  constructor(private apiService:ApiService, private router:Router, private toastrService: NbToastrService){
     this.registerForm = new FormGroup({
       name: new FormControl('',[Validators.required]),
       lastname: new FormControl('',[Validators.required]),
@@ -23,15 +24,17 @@ export class RegisterComponent {
   }
 
   register(){
-    if(this.registerForm.valid){
+    if(this.registerForm.valid && !this.isSubmit){
       this.apiService.register(this.registerForm.value).subscribe(
         response => {
-          console.log("Registro exitoso",response)
           this.registerForm.reset()
           this.router.navigate(['/verificar'])
+          this.toastrService.success('Success','Registro exitoso!')
         },
         error => {
-          console.error("Error",error)
+          if(error.status === 400){
+            this.toastrService.danger('Error al registrarse, verifica tus datos','Error')
+          }
         }
       )
     }

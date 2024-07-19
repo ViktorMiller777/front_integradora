@@ -1,7 +1,8 @@
 import { Component, HostBinding } from '@angular/core';
-import { NbToastrService, NbComponentStatus } from '@nebular/theme';
+import { NbToastrService } from '@nebular/theme';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { ApiService } from 'src/app/service/api.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -10,10 +11,11 @@ import { ApiService } from 'src/app/service/api.service';
 })
 export class LoginComponent {
   loginForm: FormGroup
+  isSubmit: boolean = false
   @HostBinding('class')
   classes = 'example-items-rows';
 
-  constructor(private apiService: ApiService, private toastrService: NbToastrService) {
+  constructor(private apiService: ApiService, private toastrService: NbToastrService, private router:Router) {
     this.loginForm = new FormGroup({
       uid: new FormControl('', [Validators.required]),
       password: new FormControl('', [Validators.required])
@@ -21,40 +23,26 @@ export class LoginComponent {
   }
 
   login() {
-    try {
-      if (this.loginForm.valid) {
-        this.apiService.login(this.loginForm.value).subscribe(
-          response => {
-            console.log("Login success", response)
-            this.showToast('success')
-            this.loginForm.reset()
-          },
-          error => {
-            console.log("Login failed", error);
-            this.showToast('danger'); 
-          }
-        )
-      }
-    } catch (error) {
-      
-    }
-    if (this.loginForm.valid) {
+    if(this.loginForm.valid && !this.isSubmit){
+      this.isSubmit = true
       this.apiService.login(this.loginForm.value).subscribe(
-        response => {
-          console.log("Login success", response)
-          this.showToast('success')
+        response =>{
+          this.toastrService.success('Success','Inicio de sesion exitoso!')
           this.loginForm.reset()
+          this.router.navigate(['/'])
         },
         error => {
-          console.log("Login failed", error);
-          this.showToast('danger'); 
+          if (error.status === 500) {
+            this.toastrService.danger('Contraseña o correo incorrectos', 'Error');
+          } else {
+            this.toastrService.danger('Ocurrio un error, intentalo de nuevo mas tarde', 'Error');
+          }
+          this.isSubmit = false;
         }
       )
     }
   }
-  showToast(status: NbComponentStatus) {
-    this.toastrService.show(`Inicio de sesión ${status === 'success' ? 'exitoso' : 'fallido'}!`, `Estado: ${status}`, { status });
-  }
-
 }
+  
+
 

@@ -21,7 +21,7 @@
                 </div>
             </div>
             <div class="box-btn">
-                <button class="btn" type="submit" nbButton status="basic" (click)="showToast('success')">Iniciar sesion</button>
+                <button class="btn" type="submit" (click)="login()" nbButton status="basic" [disabled]="!loginForm.valid">Iniciar sesion</button>
             </div>
             <div class="footer-login">
                 <a [routerLink]="['/Recuperar/pass']">Recuperar contraseña</a>

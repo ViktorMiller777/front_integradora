@@ -8,10 +8,10 @@ import { Router } from '@angular/router';
   styleUrls: ['./verificar-codigo.component.scss']
 })
 export class VerificarCodigoComponent {
-  verifyInput: FormGroup
+  verifyForm: FormGroup
 
   constructor(private router:Router){
-    this.verifyInput = new FormGroup({
+    this.verifyForm = new FormGroup({
       code: new FormControl('',[Validators.required])
     })
   }

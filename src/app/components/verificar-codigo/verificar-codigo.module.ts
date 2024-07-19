@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { VerificarCodigoComponent } from './verificar-codigo.component';
-import { NbButtonModule, NbCardModule } from '@nebular/theme';
+import { NbButtonModule, NbCardModule, NbInputModule } from '@nebular/theme';
 import { ReactiveFormsModule } from '@angular/forms';
 
 
@@ -11,6 +11,7 @@ import { ReactiveFormsModule } from '@angular/forms';
     VerificarCodigoComponent
   ],
   imports: [
+    NbInputModule,
     ReactiveFormsModule,
     CommonModule,
     NbCardModule,

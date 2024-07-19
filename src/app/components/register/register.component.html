@@ -48,7 +48,7 @@
                 </div>
             </div><br>
             <div class="box-btn">
-                <button class="btn" type="submit" nbButton status="basic">Registrar</button>
+                <button class="btn" type="submit" nbButton status="basic" [disabled]="!registerForm.valid">Registrar</button>
             </div><br>
             <div>
                 <a [routerLink]="['/login']">¿Ya tienes una cuenta? Inicia sesion.</a>
