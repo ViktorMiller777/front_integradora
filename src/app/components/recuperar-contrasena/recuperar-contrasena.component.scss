@@ -1,34 +1,34 @@
+
 .container{
     display: flex;
     justify-content: center;
     align-items: center;
 }
-.header{
-    display: flex;
-    justify-content: center;
-}
-.card{
-    width: 30%;
-}
-.form{
-    display: flex;
-    justify-content: center;
-    flex-direction: column;
-    align-content: center;
-    width: 100%;
-    gap:10px
-}
-.input-box{
-    display: flex;
-    justify-content: center;
-    flex-direction: column;
-}
-.footer{
-    display: flex;
-    justify-content: space-between;
-}
-.verificar{
+.card-box{
     display: flex;
     justify-content: center;
     align-items: center;
+    width: 35%;
+}
+.form{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    width: 100%;
+}
+.inputs{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+}
+.input{
+    width: 90%;
+}
+.btn{
+    width: 83%;
+}
+p{
+    text-align: center;
 }

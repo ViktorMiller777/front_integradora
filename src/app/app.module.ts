@@ -16,6 +16,8 @@ import { PerfilModule } from './components/perfil/perfil.module';
 import { MisDipositivosModule } from './components/mis-dipositivos/mis-dipositivos.module';
 import { SensoresModule } from './components/sensores/sensores.module';
 import { VerificarCodigoModule } from './components/verificar-codigo/verificar-codigo.module';
+import { RecuperarContrasenaModule } from './components/recuperar-contrasena/recuperar-contrasena.module';
+import { NuevaContrasenaModule } from './components/nueva-contrasena/nueva-contrasena.module';
 
 @NgModule({
   declarations: [
@@ -25,6 +27,8 @@ import { VerificarCodigoModule } from './components/verificar-codigo/verificar-c
   ],
   imports: [
     // modulos de compontentes, solo se importa el componente y desde aqui ya se importa el component
+    NuevaContrasenaModule,
+    RecuperarContrasenaModule,
     RegisterModule,
     HomeModule,
     LoginModule,

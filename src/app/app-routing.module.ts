@@ -8,9 +8,13 @@ import { MisDipositivosComponent } from './components/mis-dipositivos/mis-diposi
 import { PerfilComponent } from './components/perfil/perfil.component';
 import { SensoresComponent } from './components/sensores/sensores.component';
 import { VerificarCodigoComponent } from './components/verificar-codigo/verificar-codigo.component';
+import { RecuperarContrasenaComponent } from './components/recuperar-contrasena/recuperar-contrasena.component';
+import { NuevaContrasenaComponent } from './components/nueva-contrasena/nueva-contrasena.component';
 
 const routes: Routes = [
   {path:'',component:HomeComponent,canActivate:[]},
+  {path:'nueva-contrasena',component:NuevaContrasenaComponent,canActivate:[]},
+  {path:'recuperar-contrasena',component:RecuperarContrasenaComponent,canActivate:[]},
   {path:'verificar',component:VerificarCodigoComponent,canActivate:[]},
   {path:'register',component:RegisterComponent,canActivate:[]},
   {path:'mis-dispositivos',component:MisDipositivosComponent,canActivate:[]},

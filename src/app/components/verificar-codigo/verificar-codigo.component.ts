@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { NbToastrService } from '@nebular/theme';
+import { ApiService } from 'src/app/service/api.service';
 
 @Component({
   selector: 'app-verificar-codigo',
@@ -9,15 +11,31 @@ import { Router } from '@angular/router';
 })
 export class VerificarCodigoComponent {
   verifyForm: FormGroup
+  isSubmit: boolean = false
 
-  constructor(private router:Router){
+  constructor(private router:Router, private memin:ApiService, private tostada:NbToastrService){
     this.verifyForm = new FormGroup({
-      code: new FormControl('',[Validators.required])
+      email: new FormControl('',[Validators.required, Validators.email]),
+      verificationCode: new FormControl('',[Validators.required])
     })
   }
   
   verify(){
-    alert("si")
-    this.router.navigate(['/login'])
+    if(this.verifyForm.valid && !this.isSubmit){
+      this.memin.verficarCodigo(this.verifyForm.value).subscribe(
+        response => {
+          console.log('si se verifico', response)
+          this.tostada.success('Success','Codigo verficado')
+          this.verifyForm.reset()
+          this.router.navigate(['/login'])
+        },error => {
+          if(error.status === 400){
+            this.tostada.danger('Error','Codigo de verificacion invalido')
+          }else{
+            this.tostada.danger('Error','Verificacion fallida, intenta de nuevo mas tarde')
+          }
+        }
+      )
+    }
   }
 }

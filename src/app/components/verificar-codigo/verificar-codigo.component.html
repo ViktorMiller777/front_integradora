@@ -6,8 +6,17 @@
         <nb-card-body>
             <form class="form" [formGroup]="verifyForm" (ngSubmit)="verify()">
                 <p>Se mando un codigo de verificacion a tu correo, ingresa el codigo para poder verificar tu cuenta</p>
-                <input nbInput type="text" placeholder="Codigo de verificacion" formControlName="code"> 
-                <button  type="submit" class="btn" nbButton [disabled]="!verifyForm.valid">Verificar</button>
+                <div class="box-input">
+                    <label>Email</label>
+                    <input nbInput formControlName="email" placeholder="Ingresa tu Email">
+                </div>
+                <div class="box-input">
+                    <label>Codigo verificacion</label>
+                    <input nbInput formControlName="verificationCode" placeholder="Ingresa tu Codigo de verificacion">
+                </div>
+                <div class="box-input">
+                    <button nbButton status="success" [disabled]="!verifyForm.valid">Enviar</button>
+                </div>
             </form>
         </nb-card-body>
     </nb-card>

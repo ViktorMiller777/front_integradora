@@ -1,0 +1,20 @@
+<div class="container"> 
+    <nb-card class="card-box">
+        <nb-card-header>
+            <h2>Recuperar contraseña</h2>
+        </nb-card-header>
+        <nb-card-body>
+            <p>Recibiras un codigo de verificacion a tu email para confirmar tu recuperacion de contraseña</p>
+            <form class="form" [formGroup]="recuperarForm" (ngSubmit)="recuperar()">
+                <div class="inputs">
+                    <label>Email</label>
+                    <input class="input" nbInput type="text" placeholder="Ingresa tu email" formControlName="email">
+                </div>
+                <div class="inputs">
+                    <button class="btn" nbButton status="success" [disabled]="!recuperarForm.valid">Guardar</button>
+                </div>
+            </form>
+        </nb-card-body>
+    </nb-card>
+</div>
+<!-- dml en python, decoradores de python niit curso indu -->

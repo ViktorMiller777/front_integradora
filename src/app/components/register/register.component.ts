@@ -27,13 +27,12 @@ export class RegisterComponent {
     if(this.registerForm.valid && !this.isSubmit){
       this.apiService.register(this.registerForm.value).subscribe(
         response => {
-          this.registerForm.reset()
+          console.log('success',response)
+          this.toastrService.success('success','Usuario registrado con exito!')
           this.router.navigate(['/verificar'])
-          this.toastrService.success('Success','Registro exitoso!')
-        },
-        error => {
-          if(error.status === 400){
-            this.toastrService.danger('Error al registrarse, verifica tus datos','Error')
+        },error =>{
+          if(error.status === 500){
+            this.toastrService.danger('Error','Ocurrio un error, intenta de nuevo')
           }
         }
       )

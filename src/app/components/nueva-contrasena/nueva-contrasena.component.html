@@ -1,0 +1,26 @@
+<div class="container">
+    <nb-card class="card">
+        <nb-card-header class="header">
+            <h1>Restablecer contaseña</h1>
+        </nb-card-header>
+        <nb-card-body class="body">
+            <form class="form"[formGroup]="newPassForm" (ngSubmit)="guardar()">
+                <div class="box">
+                    <label>Email</label>
+                    <input nbInput placeholder="Ingresa tu email" formControlName="email">
+                </div>
+                <div class="box">
+                    <label>Codigo de verificacion</label>
+                    <input nbInput placeholder="Ingresa el codigo de verificacion" formControlName="verificationCode" type="text">
+                </div>
+                <div class="box">
+                    <label>Nueva contraseña</label>
+                    <input nbInput placeholder="Ingresa tu nueva contraseña" formControlName="newPassword" type="password">
+                </div>
+                <div class="box">
+                    <button type="submit" nbButton status="success" [disabled]="!newPassForm.valid">Guardar</button>
+                </div>
+            </form>
+        </nb-card-body>
+    </nb-card>
+</div>

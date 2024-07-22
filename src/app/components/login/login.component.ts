@@ -22,22 +22,23 @@ export class LoginComponent {
     })
   }
 
-  login() {
+
+  login(){
     if(this.loginForm.valid && !this.isSubmit){
-      this.isSubmit = true
       this.apiService.login(this.loginForm.value).subscribe(
-        response =>{
+        response => {
+          console.log('login success', response)
           this.toastrService.success('Success','Inicio de sesion exitoso!')
-          this.loginForm.reset()
-          this.router.navigate(['/'])
-        },
-        error => {
-          if (error.status === 500) {
-            this.toastrService.danger('Contraseña o correo incorrectos', 'Error');
+          this.router.navigate(['/verificar'])
+        },error => {
+          if(error.status === 400){
+            this.toastrService.danger('Error','Contraseña o email incorrectos')
+          }if (error.status === 500) {
+            this.toastrService.danger('Error','Ocurrio un error, intenta de nuevo mas tarde')
+          }if (error.status === 401) {
+            this.toastrService.danger('Error','Primero verifica tu cuenta para iniciar sesion')
           } else {
-            this.toastrService.danger('Ocurrio un error, intentalo de nuevo mas tarde', 'Error');
           }
-          this.isSubmit = false;
         }
       )
     }

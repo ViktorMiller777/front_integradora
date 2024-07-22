@@ -1,32 +1,29 @@
-<div class="box-form-login">
-    <nb-card class="card-login">
-        <form class="form-login" [formGroup]="loginForm" (ngSubmit)="login()">
-            <h1>INICIAR SESION</h1>
-            <div class="box-input">
-                <label class="input">Email / Username</label>
-                <nb-form-field>
-                    <input placeholder="Ingresa tu email" nbInput formControlName="uid">
-                </nb-form-field>
-                <div *ngIf="loginForm.get('uid')?.touched && loginForm.get('uid')?.invalid" class="error">
-                    Este campo es requerido.
+<div class="container">
+    <nb-card class="card">
+        <nb-card-header class="header">
+            <h1>Iniciar Sesion</h1>
+        </nb-card-header>
+        <nb-card-body>
+            <form class="form" [formGroup]="loginForm" (ngSubmit)="login()">
+                <div class="input-box">
+                    <label for="">Email</label>
+                    <input nbInput placeholder="Ingresa tu email" formControlName="uid">
                 </div>
-            </div>
-            <div class="box-input">
-                <label class="input">Contraseña</label>
-                <nb-form-field>
-                    <input placeholder="Ingresa tu contraseña" nbInput type="password" formControlName="password">
-                </nb-form-field>
-                <div *ngIf="loginForm.get('password')?.touched && loginForm.get('password')?.invalid" class="error">
-                    Este campo es requerido.
+                <div class="input-box">
+                    <label for="">Contraseña </label>
+                    <input nbInput type="password" placeholder="Ingresa tu contraseña" formControlName="password">
                 </div>
-            </div>
-            <div class="box-btn">
-                <button class="btn" type="submit" (click)="login()" nbButton status="basic" [disabled]="!loginForm.valid">Iniciar sesion</button>
-            </div>
-            <div class="footer-login">
-                <a [routerLink]="['/Recuperar/pass']">Recuperar contraseña</a>
-                <a [routerLink]="['/register']">Crear cuenta</a>
-            </div>
-        </form>
+                <div class="input-box">
+                    <button type="submit" nbButton status="success" [disabled]="!loginForm.valid">Iniciar sesion</button>
+                </div>
+                <div class="footer">
+                    <a [routerLink]="['/recuperar-contrasena']">Recuperar contraseña</a>
+                    <a [routerLink]="['/register']">Crear cuenta</a>
+                </div>
+                <div class="verificar">
+                    <a [routerLink]="['/verificar']">Verificar cuenta</a>
+                </div>
+            </form>
+        </nb-card-body>
     </nb-card>
 </div>
