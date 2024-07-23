@@ -25,7 +25,7 @@ export class VerificarCodigoComponent {
       this.memin.verficarCodigo(this.verifyForm.value).subscribe(
         response => {
           console.log('si se verifico', response)
-          this.tostada.success('Success','Codigo verficado')
+          this.tostada.success('Success','Codigo verficado, Ya puede iniciar sesion')
           this.verifyForm.reset()
           this.router.navigate(['/login'])
         },error => {

@@ -18,6 +18,7 @@ import { SensoresModule } from './components/sensores/sensores.module';
 import { VerificarCodigoModule } from './components/verificar-codigo/verificar-codigo.module';
 import { RecuperarContrasenaModule } from './components/recuperar-contrasena/recuperar-contrasena.module';
 import { NuevaContrasenaModule } from './components/nueva-contrasena/nueva-contrasena.module';
+import { CookieService } from 'ngx-cookie-service';
 
 @NgModule({
   declarations: [
@@ -47,7 +48,9 @@ import { NuevaContrasenaModule } from './components/nueva-contrasena/nueva-contr
     NbLayoutModule,
     NbEvaIconsModule
   ],
-  providers: [],
+  providers: [
+    CookieService
+  ],
   bootstrap: [AppComponent],
   schemas: []
 })

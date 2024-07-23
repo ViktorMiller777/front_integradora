@@ -6,7 +6,8 @@
                 <nb-select class="select" placeholder="Select Showcase" [(selected)]="selectedItem">
                     <nb-option value="">Opciones</nb-option>
                     <nb-option [routerLink]="['/mis-dispositivos']" value="1">Mis Dispositivos</nb-option>
-                    <nb-option [routerLink]="['/login']" value="2">Iniciar sesion</nb-option>
+                    <nb-option *ngIf="!isLogged" [routerLink]="['/login']" value="2">Iniciar sesion</nb-option>
+                    <nb-option *ngIf="isLogged" (click)="logout()" value="3">Cerrar Sesion</nb-option>
                 </nb-select>
             </div>
         </div>
