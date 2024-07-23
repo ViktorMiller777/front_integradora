@@ -1,10 +1,13 @@
 .bar {
-    background-color: #fff;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     background: rgb(60, 202, 67);
     width: 100%;
 }
-
+.footer{
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+}
 .nav-bar {
     display: flex;
     align-items: center;
@@ -32,3 +35,5 @@
 .select{
     margin-right: 25px;
 }
+
+
