@@ -10,6 +10,7 @@ import { SensoresComponent } from './components/sensores/sensores.component';
 import { VerificarCodigoComponent } from './components/verificar-codigo/verificar-codigo.component';
 import { RecuperarContrasenaComponent } from './components/recuperar-contrasena/recuperar-contrasena.component';
 import { NuevaContrasenaComponent } from './components/nueva-contrasena/nueva-contrasena.component';
+import { MeminGuard } from './guards/memin.guard';
 
 const routes: Routes = [
   {path:'',component:HomeComponent,canActivate:[]},
@@ -17,8 +18,8 @@ const routes: Routes = [
   {path:'recuperar-contrasena',component:RecuperarContrasenaComponent,canActivate:[]},
   {path:'verificar',component:VerificarCodigoComponent,canActivate:[]},
   {path:'register',component:RegisterComponent,canActivate:[]},
-  {path:'mis-dispositivos',component:MisDipositivosComponent,canActivate:[]},
-  {path:'sensor',component:SensoresComponent,canActivate:[]},
+  {path:'mis-dispositivos',component:MisDipositivosComponent,canActivate:[MeminGuard]},
+  {path:'sensor',component:SensoresComponent,canActivate:[MeminGuard]},
   {path:'perfil',component:PerfilComponent,canActivate:[]},
   {path:'login',component:LoginComponent,canActivate:[]},
   {path:'**',component:NotFoundComponent,canActivate:[]}

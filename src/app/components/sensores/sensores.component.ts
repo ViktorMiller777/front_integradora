@@ -11,5 +11,10 @@ export class SensoresComponent{
 
   data=[
     {year:2024, month:'julio', day:12, unit:'rpm', value:43},
+    {year:2024, month:'julio', day:12, unit:'rpm', value:43},
+    {year:2024, month:'julio', day:12, unit:'rpm', value:43},
+    {year:2024, month:'julio', day:12, unit:'rpm', value:43},
+    {year:2024, month:'julio', day:12, unit:'rpm', value:43},
+    {year:2024, month:'julio', day:12, unit:'rpm', value:43},
   ];
 }

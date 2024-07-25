@@ -3,14 +3,12 @@
         <nb-card class="table-sensors">
             <nb-card-header class="header">
                 <h2>Datos de sensores</h2>
-                <nb-select class="select" [(selected)]="selectedDate">
-                    <nb-option value="">Filtrar por fecha</nb-option>
+                <nb-select class="select" [(selected)]="selectedDate" placeholder="Filtrar por fecha">
                     <nb-option value="1">Por Mes</nb-option>
                     <nb-option value="2">Por Semana</nb-option>
                     <nb-option value="2">Por Dia</nb-option>
                 </nb-select>
-                <nb-select class="select" [(selected)]="selectedItem">
-                    <nb-option value="">Sensores</nb-option>
+                <nb-select class="select" [(selected)]="selectedItem" placeholder="Filtrar por sensor">
                     <nb-option value="1">Ritmo cardiaco</nb-option>
                     <nb-option value="2">Temperatura</nb-option>
                     <nb-option value="3">Pasos</nb-option>

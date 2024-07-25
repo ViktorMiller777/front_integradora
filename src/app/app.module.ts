@@ -41,6 +41,7 @@ import { CookieService } from 'ngx-cookie-service';
     NbSelectModule,
     NbFormFieldModule,
     NbCardModule,
+    NbButtonModule,
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
