@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http'
 import { Observable } from 'rxjs';
+import { CookieService } from 'ngx-cookie-service';
 
 
 interface LoginResponse{
@@ -21,6 +22,11 @@ interface NuevaContrasenaResponse{
 interface VerificarCodigoResponse{
 }
 
+interface getLastDataPackAPunchResponse{
+  Sensors:[]
+}
+
+
 
 @Injectable({
   providedIn: 'root'
@@ -28,7 +34,24 @@ interface VerificarCodigoResponse{
 export class ApiService {
   url = 'http://127.0.0.1:3333'
 
-  constructor(private http:HttpClient) { }
+  constructor(private http:HttpClient, private galleta:CookieService) { }
+
+  //ruta para mostar el last_data 
+  getLastData(dispositiveID:number, sensorID:number){
+    return this.http.post<any>(`${this.url}/api/sensors/last-data`, {dispositiveID, sensorID})
+  }
+
+  //ruta para mostra los sensores de 1 dispositivo en especial
+  sensoresDeDispositivo(dispositiveID: number): Observable<any> {
+    return this.http.post<any>(`${this.url}/api/sensors/sensor-list`, {dispositiveID});
+  }
+
+  // ruta que muestra todos los dispositivos de un usuario nada mas, falta que me muestre los sensores y su last data de ese dispositivo
+  // dispositivosPorUsuario(): Observable<any>{
+  //   const token = this.galleta.get('token')
+  //   const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`)
+  //   return this.http.get<any>(`${this.url}/api/dispositives/show`, {headers})
+  // }
 
   //ruta para login nota: cambiar a la ruta de la api
   login(userData:any):Observable<LoginResponse>{
@@ -52,6 +75,12 @@ export class ApiService {
   //ruta para verificar la cuenta registrada
   verficarCodigo(userData:any):Observable<VerificarCodigoResponse>{
     return this.http.post<VerificarCodigoResponse>(`${this.url}/api/auth/verify-account`, userData)
+  }
 
+  //funcion para mostrar todos los dispositivos con su sensor y el lastdata del sensor del usuario que esta logueado
+  getLastDataPackAPunch():Observable<any>{
+    const token = this.galleta.get('token')
+    const headers = new  HttpHeaders().set('Authorization',`Bearer ${token}`)
+    return this.http.get<any>(`${this.url}/api/dispositives/show`,{headers})
   }
 }

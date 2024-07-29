@@ -10,6 +10,7 @@ import { CookieService } from 'ngx-cookie-service';
 export class AppComponent implements OnInit{
   isLogged: boolean = false
   title = 'Integral';
+  selectedItem =''
 
   constructor(private galleta:CookieService, private router:Router){}
 
