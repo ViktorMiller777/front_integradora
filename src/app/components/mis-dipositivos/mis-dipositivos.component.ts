@@ -25,6 +25,7 @@ export class MisDipositivosComponent implements OnInit{
   dispositivoClick(DispositiveId: number, sensorId: number) {
     console.log(`DispositivoID: ${DispositiveId}, Sensor ID: ${sensorId}`)
     this.galleta.set('DispositiveID', DispositiveId.toString(),{expires:1})
+    this.galleta.set('sensorID',sensorId.toString())
     this.router.navigate(['/sensor'])
   }
 }

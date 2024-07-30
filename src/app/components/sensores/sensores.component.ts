@@ -28,6 +28,17 @@ export class SensoresComponent implements OnInit{
         console.log('Sensores del dispositivo',data)
       }
     )
+    const dispositiveIDStr = this.galleta.get('DispositiveID')
+    const dispositiveID = parseInt(dispositiveIDStr)
+    const sensorIDStr = this.galleta.get('sensorID')
+    const sensorID = parseInt(sensorIDStr)
+    this.apiService.getLastData(dispositiveID, sensorID).subscribe(
+      data =>{
+        this.sensorValue = data
+        console.log('Data', data);     
+        // , 'Sensor:',sensorID, dispositiveID
+      }
+    )
   }
 
   sensorClick(item: any): void {
