@@ -20,6 +20,7 @@ export class AppComponent implements OnInit{
 
   logout(){
     this.galleta.delete('token')
+    this.galleta.delete('DispositiveID')
     this.isLogged = true
     this.router.navigate(['/login'])
   }

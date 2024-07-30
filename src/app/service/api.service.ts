@@ -22,8 +22,7 @@ interface NuevaContrasenaResponse{
 interface VerificarCodigoResponse{
 }
 
-interface getLastDataPackAPunchResponse{
-  Sensors:[]
+interface getPackAPunchResponse{
 }
 
 
@@ -35,23 +34,6 @@ export class ApiService {
   url = 'http://127.0.0.1:3333'
 
   constructor(private http:HttpClient, private galleta:CookieService) { }
-
-  //ruta para mostar el last_data 
-  getLastData(dispositiveID:number, sensorID:number){
-    return this.http.post<any>(`${this.url}/api/sensors/last-data`, {dispositiveID, sensorID})
-  }
-
-  //ruta para mostra los sensores de 1 dispositivo en especial
-  sensoresDeDispositivo(dispositiveID: number): Observable<any> {
-    return this.http.post<any>(`${this.url}/api/sensors/sensor-list`, {dispositiveID});
-  }
-
-  // ruta que muestra todos los dispositivos de un usuario nada mas, falta que me muestre los sensores y su last data de ese dispositivo
-  // dispositivosPorUsuario(): Observable<any>{
-  //   const token = this.galleta.get('token')
-  //   const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`)
-  //   return this.http.get<any>(`${this.url}/api/dispositives/show`, {headers})
-  // }
 
   //ruta para login nota: cambiar a la ruta de la api
   login(userData:any):Observable<LoginResponse>{
@@ -78,9 +60,19 @@ export class ApiService {
   }
 
   //funcion para mostrar todos los dispositivos con su sensor y el lastdata del sensor del usuario que esta logueado
-  getLastDataPackAPunch():Observable<any>{
+  getLastDataMejorado():Observable<any>{
     const token = this.galleta.get('token')
     const headers = new  HttpHeaders().set('Authorization',`Bearer ${token}`)
     return this.http.get<any>(`${this.url}/api/dispositives/show`,{headers})
+  }
+
+  //ruta para mostrar los sensores de un dispositivo
+  sensoresDeDispositivo(dispositiveID: number): Observable<any> {
+    return this.http.post<any>(`${this.url}/api/sensors/sensor-list`, {dispositiveID});
+  }
+
+  //ruta para obtener el ultimo dato de un sensor en especifico
+  getLastData(dispositiveID:number, sensorID:number){
+    return this.http.post<any>(`${this.url}/api/sensors/last-data`, {dispositiveID, sensorID})
   }
 }

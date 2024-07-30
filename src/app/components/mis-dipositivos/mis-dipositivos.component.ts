@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { CookieService } from 'ngx-cookie-service';
 import { ApiService } from 'src/app/service/api.service';
 
 @Component({
@@ -9,10 +11,10 @@ import { ApiService } from 'src/app/service/api.service';
 export class MisDipositivosComponent implements OnInit{
 
   dispositivo: any[] = [];
-  constructor(private apiService: ApiService){}
+  constructor(private apiService: ApiService, private galleta:CookieService, private router:Router){}
 
   ngOnInit():void{
-    this.apiService.getLastDataPackAPunch().subscribe(
+    this.apiService.getLastDataMejorado().subscribe(
       data =>{
         this.dispositivo = data
         console.log('estos son los datos',data)
@@ -20,7 +22,9 @@ export class MisDipositivosComponent implements OnInit{
     )
   }
 
-  // brazalet=[{
-  //   name: 'Bolillo :D'
-  // }]
+  dispositivoClick(DispositiveId: number, sensorId: number) {
+    console.log(`DispositivoID: ${DispositiveId}, Sensor ID: ${sensorId}`)
+    this.galleta.set('DispositiveID', DispositiveId.toString(),{expires:1})
+    this.router.navigate(['/sensor'])
+  }
 }

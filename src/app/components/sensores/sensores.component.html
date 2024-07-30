@@ -10,7 +10,7 @@
                     <nb-option value="4">Ultimo 30 min</nb-option>
                 </nb-select>
                 <nb-select class="select" placeholder="Filtrar por sensor">
-                    <nb-option (click)="sensorClick(item)" *ngFor="let item of sensor" [value]="item.id">ID:{{item.id}} Tipo:{{item.type}}</nb-option>
+                    <nb-option (click)="sensorClick(item)" *ngFor="let item of sensor" [value]="item.id" >ID:{{item.id}}  Tipo:{{item.type}}</nb-option>
                 </nb-select>
             </nb-card-header>
             <nb-card-body>
@@ -22,7 +22,7 @@
                     </thead>
                     <tbody>
                         <tr>
-                            <td *ngFor="let item of data">{{item.value}}</td>
+                            <td *ngFor="let item of sensorValue">{{item.value}} {{item.unit}}</td>
                         </tr>
                     </tbody>
                 </table>

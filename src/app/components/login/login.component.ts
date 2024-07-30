@@ -37,9 +37,9 @@ export class LoginComponent {
           this.toastrService.success('Success','Inicio de sesion exitoso!')
           this.router.navigate(['/'])
         },error => {
-          if(error.status === 400){
+          if(error.status === 500){
             this.toastrService.danger('Error','Contraseña o email incorrectos')
-          }if (error.status === 500) {
+          }if (error.status === 400) {
             this.toastrService.danger('Error','Ocurrio un error, intenta de nuevo mas tarde')
           }if (error.status === 401) {
             this.toastrService.danger('Error','Primero verifica tu cuenta para iniciar sesion')

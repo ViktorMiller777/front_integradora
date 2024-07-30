@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { CookieService } from 'ngx-cookie-service';
 import { ApiService } from 'src/app/service/api.service';
 
 
@@ -10,34 +11,37 @@ import { ApiService } from 'src/app/service/api.service';
 })
 export class SensoresComponent implements OnInit{
 
-  constructor(private apiService:ApiService){}
+  dispositivo: any[] = [];
+
+  constructor(private apiService:ApiService, private galleta:CookieService){}
   data: any[] = [];
   sensor: any[] = [];
+  sensorValue: any[] = [];
+
 
   ngOnInit(){
-    const deviceId = 1
-    this.apiService.sensoresDeDispositivo(deviceId).subscribe(
-      data =>{
+    const DispositiveIDStr = this.galleta.get('DispositiveID')
+    const DispositiveID = parseInt(DispositiveIDStr)
+    this.apiService.sensoresDeDispositivo(DispositiveID).subscribe(
+      data => {
         this.sensor = data
-        console.log(this.sensor)
+        console.log('Sensores del dispositivo',data)
       }
     )
   }
 
   sensorClick(item: any): void {
-    this.works(item)
-  }
-
-  getRandomNumber(): number {
-    return Math.floor(Math.random() * 6) + 1;
+    this.works(item.id)
   }
 
   works(sensorID:number){
-    const deviceId = 8
-    this.apiService.getLastData(deviceId, sensorID).subscribe(
-      response =>{
-        this.data = response; 
-        console.log('Datos obtenidos:', this.data, sensorID);     
+    const dispositiveIDStr = this.galleta.get('DispositiveID')
+    const dispositiveID = parseInt(dispositiveIDStr)
+    this.apiService.getLastData(dispositiveID, sensorID).subscribe(
+      data =>{
+        this.sensorValue = data
+        console.log('Data', data);     
+        // , 'Sensor:',sensorID, dispositiveID
       }
     )
   }
