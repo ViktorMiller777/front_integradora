@@ -36,7 +36,6 @@ export class SensoresComponent implements OnInit{
       data =>{
         this.sensorValue = data
         console.log('Data', data);     
-        // , 'Sensor:',sensorID, dispositiveID
       }
     )
   }

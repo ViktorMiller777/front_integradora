@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { CookieService } from 'ngx-cookie-service';
 import { ApiService } from 'src/app/service/api.service';
+import { SocketService } from 'src/app/service/socket.service';
 
 @Component({
   selector: 'app-mis-dipositivos',
@@ -11,15 +12,30 @@ import { ApiService } from 'src/app/service/api.service';
 export class MisDipositivosComponent implements OnInit{
 
   dispositivo: any[] = [];
-  constructor(private apiService: ApiService, private galleta:CookieService, private router:Router){}
+  constructor(private apiService: ApiService, private galleta:CookieService, private router:Router, private socketexd: SocketService){}
 
-  ngOnInit():void{
+  // los parametros de fecha para filtrar por fecha es en formato YYYY-MM-DD y en formato 25 horas 24:60:60
+
+  //arrelgo de id de los dispositivos de los usurios y ese lo paso como parametro en la funcion de watchAllData 
+  //primero necesito agregar al arrelgo pero el puro id de los dipositivos el areglo se v a extender segun la cantidad de los dispositivos que tenga el usuraio
+  ngOnInit(): void {
     this.apiService.getLastDataMejorado().subscribe(
-      data =>{
+      data => {
         this.dispositivo = data
-        console.log('estos son los datos',data)
+        console.log('Dispositivos', data)
+        this.socketexd.watchAllData('1')
+        
+
+        //esto quiza lo puedo usar para que 
+        // if (data && data.length > 0) {
+        //   this.socketexd.watchAllData(data[0].dispositiveID);
+        // }
       }
-    )
+    );
+
+    this.socketexd.ListenData().subscribe(realTimeData => {
+      console.log('Real-time data received:', realTimeData)
+    })
   }
 
   dispositivoClick(DispositiveId: number, sensorId: number) {

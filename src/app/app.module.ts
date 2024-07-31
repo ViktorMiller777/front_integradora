@@ -19,6 +19,11 @@ import { VerificarCodigoModule } from './components/verificar-codigo/verificar-c
 import { RecuperarContrasenaModule } from './components/recuperar-contrasena/recuperar-contrasena.module';
 import { NuevaContrasenaModule } from './components/nueva-contrasena/nueva-contrasena.module';
 import { CookieService } from 'ngx-cookie-service';
+import { SocketIoConfig } from 'ngx-socket-io';
+import { SocketIoModule } from 'ngx-socket-io';
+
+const conf: SocketIoConfig = { url:'http://127.0.0.1:3333', options:{transports:['websocket']}}
+
 
 @NgModule({
   declarations: [
@@ -37,6 +42,7 @@ import { CookieService } from 'ngx-cookie-service';
     MisDipositivosModule,
     SensoresModule,
     VerificarCodigoModule,
+    SocketIoModule.forRoot(conf),
 
     NbSelectModule,
     NbFormFieldModule,

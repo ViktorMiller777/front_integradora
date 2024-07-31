@@ -22,7 +22,8 @@ interface NuevaContrasenaResponse{
 interface VerificarCodigoResponse{
 }
 
-interface getPackAPunchResponse{
+interface HomeDispositivosResponse{
+
 }
 
 
@@ -74,5 +75,12 @@ export class ApiService {
   //ruta para obtener el ultimo dato de un sensor en especifico
   getLastData(dispositiveID:number, sensorID:number){
     return this.http.post<any>(`${this.url}/api/sensors/last-data`, {dispositiveID, sensorID})
+  }
+
+  //servicio para obtener los Id de todos los dispositivos del usuario logueado
+  HomeDispositivos():Observable<HomeDispositivosResponse>{
+    const token = this.galleta.get('token')
+    const headers = new  HttpHeaders().set('Authorization',`Bearer ${token}`)
+    return this.http.get<HomeDispositivosResponse>(`${this.url}/api/dispositives/show`,{headers})
   }
 }
