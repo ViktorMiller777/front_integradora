@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http'
 import { Observable } from 'rxjs';
 import { CookieService } from 'ngx-cookie-service';
+import { map } from 'rxjs';
 
 
 interface LoginResponse{
@@ -23,7 +24,7 @@ interface VerificarCodigoResponse{
 }
 
 interface HomeDispositivosResponse{
-
+    DispositiveID:number[]
 }
 
 
@@ -78,9 +79,13 @@ export class ApiService {
   }
 
   //servicio para obtener los Id de todos los dispositivos del usuario logueado
-  HomeDispositivos():Observable<HomeDispositivosResponse>{
-    const token = this.galleta.get('token')
-    const headers = new  HttpHeaders().set('Authorization',`Bearer ${token}`)
-    return this.http.get<HomeDispositivosResponse>(`${this.url}/api/dispositives/show`,{headers})
+  HomeDispositivos(): Observable<number[]> {
+    const token = this.galleta.get('token');
+    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+    return this.http.get<any[]>(`${this.url}/api/dispositives/show`, { headers }).pipe(
+      map(response => {
+        return response.map(dispositivo => dispositivo.DispositiveID);
+      })
+    );
   }
 }
