@@ -35,8 +35,8 @@ export class MisDipositivosComponent implements OnInit{
                 console.log('jijia4')
                 this.socketexd.watchAllData(idStr)
                 console.log('jijija5',idStr)
-                this.socketexd.ListenData().subscribe(realTimeData => {
-                  console.log('Real-time data received:', realTimeData)
+                this.socketexd.ListenData().subscribe(lastData => {
+                  console.log('datos recibidos:', lastData)
                 })
               })
             }
@@ -45,10 +45,6 @@ export class MisDipositivosComponent implements OnInit{
       }
     )
   }
-  
-
-
- 
   
 
   dispositivoClick(DispositiveId: number, sensorId: number) {

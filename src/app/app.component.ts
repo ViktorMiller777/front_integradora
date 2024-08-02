@@ -21,6 +21,7 @@ export class AppComponent implements OnInit{
   logout(){
     this.galleta.delete('token')
     this.galleta.delete('DispositiveID')
+    this.galleta.delete('sensorID')
     this.isLogged = true
     this.router.navigate(['/login'])
   }

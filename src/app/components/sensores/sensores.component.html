@@ -3,7 +3,7 @@
         <nb-card class="table-sensors">
             <nb-card-header class="header">
                 <h2>Datos de sensores</h2>
-                <nb-select class="select" placeholder="Filtrar por fecha">
+                <nb-select class="select" placeholder="Filtrar por fecha" (selectedChange)="filtrarPorFecha($event)">
                     <nb-option value="1">Por Semana</nb-option>
                     <nb-option value="2">Por Dia</nb-option>
                     <nb-option value="3">Ultimo 1 hora</nb-option>

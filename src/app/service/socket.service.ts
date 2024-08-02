@@ -22,12 +22,4 @@ export class SocketService {
   ListenData() {
     return this.socket.fromEvent('data:listen')
   }
-
-  // listen(eventName:string):Observable<any>{
-  //   return this.socket.fromEvent(eventName)
-  // }
-
-  // emit(eventName:string, data:any){
-  //   this.socket.emit(eventName,data)
-  // }
 }

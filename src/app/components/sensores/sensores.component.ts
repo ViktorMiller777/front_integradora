@@ -1,4 +1,6 @@
+import { DatePipe } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
+import { NbToastrService } from '@nebular/theme';
 import { CookieService } from 'ngx-cookie-service';
 import { ApiService } from 'src/app/service/api.service';
 
@@ -10,14 +12,114 @@ import { ApiService } from 'src/app/service/api.service';
   styleUrls: ['./sensores.component.scss']
 })
 export class SensoresComponent implements OnInit{
-
-  dispositivo: any[] = [];
-
-  constructor(private apiService:ApiService, private galleta:CookieService){}
   data: any[] = [];
   sensor: any[] = [];
   sensorValue: any[] = [];
+  dispositivo: any[] = [];
 
+
+  constructor(private apiService:ApiService, private galleta:CookieService, private tostatda: NbToastrService){}
+
+  filtrarPorFecha(selectedValue: string): void {
+    // const dateFinish =  "2024-07-16 23:59:59"
+    
+    // fecha mas actual con formato ISO 
+    const UglyDateFinish = new Date()
+    let dateFinish = UglyDateFinish.toISOString()
+    dateFinish = dateFinish.split('.')[0]
+    dateFinish = dateFinish.replace('T', ' ');
+
+    const sensorIDStr = this.galleta.get('sensorID')
+    const dispositiveIDStr = this.galleta.get('DispositiveID')
+    const sensorID = parseInt(sensorIDStr)
+    const dispositiveID = parseInt(dispositiveIDStr)
+   
+    switch (selectedValue) {
+      case '1':
+        //fecha que se restara a la fecha acutal en formato ISO
+        const weekDataBegin = new Date(UglyDateFinish)
+        weekDataBegin.setDate(UglyDateFinish.getDate() - 7)
+        let weekdatabegin = weekDataBegin.toISOString()
+        weekdatabegin = weekdatabegin.split('.')[0]
+        weekdatabegin = weekdatabegin.replace('T', ' ');
+
+        console.log(weekdatabegin)
+        console.log(dateFinish)
+     
+        this.apiService.ReportBySensor(weekdatabegin, dateFinish, sensorID, dispositiveID).subscribe(
+          data => {
+            console.log('reporte por semana',data)
+          },error => {
+            if (error.status === 404){
+              this.tostatda.warning('Este sensor no tiene registro en este limite de tiempo','Sin registros :(')
+            }
+          }
+        )
+        break;
+      case '2':
+        const dayDataBegin = new Date(UglyDateFinish)
+        dayDataBegin.setDate(UglyDateFinish.getDate() - 1)
+        let daydatabegin = dayDataBegin.toISOString()
+        daydatabegin = daydatabegin.split('.')[0]
+        daydatabegin = daydatabegin.replace('T', ' ');
+
+        console.log(daydatabegin)
+        console.log(dateFinish)
+     
+        this.apiService.ReportBySensor(daydatabegin, dateFinish, sensorID, dispositiveID).subscribe(
+          data => {
+            console.log('reporte por dia',data)
+          },error => {
+            if (error.status === 404){
+              this.tostatda.warning('Este sensor no tiene registro en este limite de tiempo','Sin registros :(')
+            }
+          }
+        )      
+        break;
+      case '3':
+        const hrDataBegin = new Date(UglyDateFinish)
+        hrDataBegin.setHours(UglyDateFinish.getHours() - 1)
+        let hrdatabegin = hrDataBegin.toISOString()
+        hrdatabegin = hrdatabegin.split('.')[0]
+        hrdatabegin = hrdatabegin.replace('T', ' ');
+        
+        console.log(hrdatabegin)
+        console.log(dateFinish)
+     
+        this.apiService.ReportBySensor(hrdatabegin, dateFinish, sensorID, dispositiveID).subscribe(
+          data => {
+            console.log('reporte por 1hora',data)
+          },error => {
+            if (error.status === 404){
+              this.tostatda.warning('Este sensor no tiene registro en este limite de tiempo','Sin registros :(')
+            }
+          }
+        ) 
+        break;
+      case '4':
+        const midDataBegin = new Date(UglyDateFinish)
+        midDataBegin.setMinutes(UglyDateFinish.getMinutes() - 1)
+        let middatabegin = midDataBegin.toISOString()
+        middatabegin = middatabegin.split('.')[0]
+        middatabegin = middatabegin.replace('T', ' ');
+
+        console.log(middatabegin)
+        console.log(dateFinish)
+     
+        this.apiService.ReportBySensor(middatabegin, dateFinish, sensorID, dispositiveID).subscribe(
+          data => {
+            console.log('reporte por 30min',data)
+          },error => {
+            if (error.status === 404){
+              this.tostatda.warning('Este sensor no tiene registro en este limite de tiempo','Sin registros :(')
+            }
+          }
+        ) 
+        break;
+      default:
+        break;
+    }
+  }
 
   ngOnInit(){
     const DispositiveIDStr = this.galleta.get('DispositiveID')
@@ -42,6 +144,11 @@ export class SensoresComponent implements OnInit{
 
   sensorClick(item: any): void {
     this.works(item.id)
+    this.galleta.set('sensorID',item.id)
+  }
+
+  dateClick(): void{
+    // this.reporteDeFechas(item)
   }
 
   works(sensorID:number){
@@ -51,7 +158,6 @@ export class SensoresComponent implements OnInit{
       data =>{
         this.sensorValue = data
         console.log('Data', data);     
-        // , 'Sensor:',sensorID, dispositiveID
       }
     )
   }
