@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { NbCardModule, NbButtonModule, NbLayoutModule, NbTabsetModule } from '@nebular/theme';
+import { NbCardModule, NbButtonModule, NbLayoutModule, NbTabsetModule, NbSpinnerModule } from '@nebular/theme';
 import { MisDipositivosComponent } from './mis-dipositivos.component';
 import { RouterLink } from '@angular/router';
 
@@ -11,6 +11,7 @@ import { RouterLink } from '@angular/router';
     MisDipositivosComponent
   ],
   imports: [
+    NbSpinnerModule,
     RouterLink,
     NbTabsetModule,
     NbLayoutModule,

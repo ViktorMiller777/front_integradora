@@ -1,4 +1,9 @@
-<div class="box-mis-dispositivos">
+<div *ngIf="loading" class="loading">
+  <h1>Cargando dispositivos...</h1>
+  <p>Esto puede tardar segun los dispositivos que tengas, la paciencia es una virtud</p>
+  <nb-spinner *ngIf="loading"></nb-spinner>
+</div>
+<div class="box-mis-dispositivos" *ngIf="!loading">
     <nb-card class="box">
         <nb-card *ngFor="let item of dispositivo">
             <nb-card-header><h2> Nombre del dispositivo: {{item.name}}</h2></nb-card-header>
@@ -21,3 +26,4 @@
         </nb-card>
     </nb-card>
 </div>
+
