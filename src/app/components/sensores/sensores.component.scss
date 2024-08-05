@@ -32,3 +32,14 @@ th{
     border-radius: 5px;
     background: rgb(60, 202, 67);
 }
+.tr{
+    display: flex;
+    flex-direction: column;
+}
+.loading{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap:50px;
+    align-items: center;
+}

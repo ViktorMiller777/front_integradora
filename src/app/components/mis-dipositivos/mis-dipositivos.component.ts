@@ -1,8 +1,8 @@
-import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
-import { CookieService } from 'ngx-cookie-service';
-import { ApiService } from 'src/app/service/api.service';
-import { SocketService } from 'src/app/service/socket.service';
+import { Component, OnInit } from '@angular/core'
+import { Router } from '@angular/router'
+import { CookieService } from 'ngx-cookie-service'
+import { ApiService } from 'src/app/service/api.service'
+import { SocketService } from 'src/app/service/socket.service'
 
 @Component({
   selector: 'app-mis-dipositivos',
@@ -11,8 +11,8 @@ import { SocketService } from 'src/app/service/socket.service';
 })
 export class MisDipositivosComponent implements OnInit{
 
-  dispositiveIDs: number[] = [];
-  dispositivo: any[] = [];
+  dispositiveIDs: number[] = []
+  dispositivo: any[] = []
   loading: boolean = true
 
   constructor(private apiService: ApiService, private galleta:CookieService, private router:Router, private socketexd: SocketService){}
@@ -20,55 +20,32 @@ export class MisDipositivosComponent implements OnInit{
   ngOnInit() {
     this.apiService.getLastDataMejorado().subscribe(
       data => {
-        this.dispositivo = data;
-        console.log('dispositivos', data);
+        this.dispositivo = data
+        console.log('dispositivos', data)
         this.apiService.HomeDispositivos().subscribe(
           data => {
-            this.dispositiveIDs = data;
+            this.dispositiveIDs = data
             if (this.dispositiveIDs && this.dispositiveIDs.length > 0) {
               this.dispositiveIDs.forEach(id => {
-                const idStr = id.toString();
-                this.socketexd.watchAllData(idStr);
+                const idStr = id.toString()
+                this.socketexd.watchAllData(idStr)
                 this.socketexd.ListenData().subscribe(lastData => {
-                  console.log('datos recibidos:', lastData);
-                });
-              });
+                  console.log('datos recibidos:', lastData)
+                })
+              })
             }
-            this.loading = false; // Ocultamos el spinner cuando los datos se han cargado
+            this.loading = false
           },
           error => {
-            this.loading = false; // Ocultamos el spinner en caso de error
+            this.loading = false
           }
-        );
+        )
       },
       error => {
-        this.loading = false; // Ocultamos el spinner en caso de error
+        this.loading = false
       }
-    );
+    )
   }
-  // ngOnInit(){
-  //   this.apiService.getLastDataMejorado().subscribe(
-  //     data => {
-  //       this.dispositivo = data 
-  //       console.log('dispositivos',data)
-  //       this.apiService.HomeDispositivos().subscribe(
-  //         data => {
-  //           this.dispositiveIDs = data
-  //           console.log('ids',data)
-  //           if(this.dispositiveIDs && this.dispositiveIDs.length > 0){
-  //             this.dispositiveIDs.forEach(id => {
-  //               const idStr = id.toString()
-  //               this.socketexd.watchAllData(idStr)
-  //               this.socketexd.ListenData().subscribe(lastData => {
-  //                 console.log('datos recibidos:', lastData)
-  //               })
-  //             })
-  //           }
-  //         }
-  //       )
-  //     }
-  //   )
-  // }
 
   dispositivoClick(DispositiveId: number, sensorId: number) {
     console.log(`DispositivoID: ${DispositiveId}, Sensor ID: ${sensorId}`)

@@ -21,10 +21,15 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <td *ngFor="let item of sensorValue">{{item.value}} {{item.unit}}</td>
+                        <div *ngIf="loading" class="loading">
+                            <h3>Cargando datos del sensor...</h3>
+                            <p>Esto puede tardar unos segundos.</p>
+                            <nb-spinner *ngIf="loading"></nb-spinner>
+                        </div>
+                        <tr *ngFor="let report of reportTime" class="tr">
+                            <td *ngFor="let item of report.data">{{item.value}} {{item.identifier}}</td>
                         </tr>
-                    </tbody>
+                    </tbody> 
                 </table>
             </nb-card-body>
         </nb-card>
