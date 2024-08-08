@@ -14,7 +14,7 @@ export class LoginComponent {
   loginForm: FormGroup
   isSubmit: boolean = false
   @HostBinding('class')
-  classes = 'example-items-rows';
+  classes = 'example-items-rows'
 
   constructor(
     private apiService: ApiService,

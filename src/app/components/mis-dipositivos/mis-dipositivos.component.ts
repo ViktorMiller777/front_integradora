@@ -28,9 +28,9 @@ export class MisDipositivosComponent implements OnInit{
             if (this.dispositiveIDs && this.dispositiveIDs.length > 0) {
               this.dispositiveIDs.forEach(id => {
                 const idStr = id.toString()
-                this.socketexd.watchAllData(idStr)
-                this.socketexd.ListenData().subscribe(lastData => {
-                  console.log('datos recibidos:', lastData)
+                this.socketexd.emit('data:emit', {type:'WatchAllData', dispositiveID: idStr})
+                this.socketexd.listen('WatchAllData').subscribe(lastData =>{
+                  console.log('datos recibidos:',lastData)
                 })
               })
             }
