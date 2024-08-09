@@ -22,9 +22,9 @@ export class SensoresComponent implements OnInit{
   filtrarPorFecha(selectedValue: string): void {
 
     const UglyDateFinish = new Date()
-    UglyDateFinish.setHours(UglyDateFinish.getHours() - 6); // Resta 6 horas
-    let dateFinish = UglyDateFinish.toISOString();
-    dateFinish = dateFinish.split('.')[0].replace('T', ' ');
+    UglyDateFinish.setHours(UglyDateFinish.getHours() - 6)
+    let dateFinish = UglyDateFinish.toISOString()
+    dateFinish = dateFinish.split('.')[0].replace('T', ' ')
 
     const sensorIDStr = this.galleta.get('sensorID')
     const sensorID = parseInt(sensorIDStr)
@@ -148,14 +148,12 @@ export class SensoresComponent implements OnInit{
           }
         )
         const dispositiveIDSocketStr = this.galleta.get('DispositiveID')
-        // cambie para poder utilizar 
-        const dispositiveIDSocket = parseInt(dispositiveIDSocketStr)
         const sensorIDSocketStr = this.galleta.get('sensorID')
-        const sensorIDSocket = parseInt(sensorIDSocketStr)
+        
         //SOCKETE SOCKETE SOCKETE SOCKETE SOCKETESOCKETESOCKETE SOCKETE SOCKETESOCKETE
-        this.socket.emit('data:emit',{typer:'WatchLastData',dispositiveID:dispositiveIDSocket ,sensorID:sensorIDSocketStr}) //QUITAR EL HARDCODEO Y PONER EL VALOR DESDE LAS COOKIES
+        this.socket.emit('data:emit',{typer:'WatchLastData',dispositiveID:dispositiveIDSocketStr ,sensorID:sensorIDSocketStr}) //QUITAR EL HARDCODEO Y PONER EL VALOR DESDE LAS COOKIES
         this.socket.listen('data:listen').subscribe(lastData =>{
-          console.log('datos recibidos',lastData)
+          console.log('datos recibidos WatchLastData',lastData)
         })
         //SOCKETE SOCKETE SOCKETE SOCKETE SOCKETESOCKETESOCKETE SOCKETE SOCKETESOCKETE
 
