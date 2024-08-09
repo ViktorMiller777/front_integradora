@@ -16,10 +16,6 @@ export class SensoresComponent implements OnInit{
   sensor: any[] = []
   sensorValue: any[] = []
   dispositivo: any[] = []
-  paginatedReports: any[] = []
-  currentPage: number = 1
-  itemsPerPage: number = 15
-
 
   constructor(private apiService:ApiService, private galleta:CookieService, private tostatda: NbToastrService, private socket:SocketService){}
 
@@ -41,8 +37,7 @@ export class SensoresComponent implements OnInit{
         const weekDataBegin = new Date(UglyDateFinish)
         weekDataBegin.setDate(UglyDateFinish.getDate() - 7)
         let weekdatabegin = weekDataBegin.toISOString()
-        weekdatabegin = weekdatabegin.split('.')[0]
-        weekdatabegin = weekdatabegin.replace('T', ' ')
+        weekdatabegin = weekdatabegin.split('.')[0].replace('T',' ')
 
         console.log(weekdatabegin)
         console.log(dateFinish)
@@ -63,8 +58,7 @@ export class SensoresComponent implements OnInit{
         const dayDataBegin = new Date(UglyDateFinish)
         dayDataBegin.setDate(UglyDateFinish.getDate() - 1)
         let daydatabegin = dayDataBegin.toISOString()
-        daydatabegin = daydatabegin.split('.')[0]
-        daydatabegin = daydatabegin.replace('T', ' ')
+        daydatabegin = daydatabegin.split('.')[0].replace('T', ' ')
 
         console.log(daydatabegin)
         console.log(dateFinish)
@@ -84,8 +78,7 @@ export class SensoresComponent implements OnInit{
         const hrDataBegin = new Date(UglyDateFinish)
         hrDataBegin.setHours(UglyDateFinish.getHours() - 1)
         let hrdatabegin = hrDataBegin.toISOString()
-        hrdatabegin = hrdatabegin.split('.')[0]
-        hrdatabegin = hrdatabegin.replace('T', ' ')
+        hrdatabegin = hrdatabegin.split('.')[0].replace('T', ' ')
         
         console.log(hrdatabegin)
         console.log(dateFinish)
@@ -105,8 +98,7 @@ export class SensoresComponent implements OnInit{
         const midDataBegin = new Date(UglyDateFinish)
         midDataBegin.setMinutes(UglyDateFinish.getMinutes() - 30)
         let middatabegin = midDataBegin.toISOString()
-        middatabegin = middatabegin.split('.')[0]
-        middatabegin = middatabegin.replace('T', ' ')
+        middatabegin = middatabegin.split('.')[0].replace('T', ' ')
 
         console.log(middatabegin)
         console.log(dateFinish)
@@ -136,15 +128,13 @@ export class SensoresComponent implements OnInit{
         console.log('Sensores del dispositivo',data)
         const UglyDateFinish = new Date()
         let dateFinish = UglyDateFinish.toISOString()
-        dateFinish = dateFinish.split('.')[0]
-        dateFinish = dateFinish.replace('T', ' ')
+        dateFinish = dateFinish.split('.')[0].replace('T', ' ')
         const dispositiveIDStr = this.galleta.get('DispositiveID')
         const dispositiveID = parseInt(dispositiveIDStr)
         const weekDataBegin = new Date(UglyDateFinish)
         weekDataBegin.setDate(UglyDateFinish.getDate() - 7)
         let weekdatabegin = weekDataBegin.toISOString()
-        weekdatabegin = weekdatabegin.split('.')[0]
-        weekdatabegin = weekdatabegin.replace('T', ' ')
+        weekdatabegin = weekdatabegin.split('.')[0].replace('T', ' ')
             
         this.apiService.ReportBySensor(weekdatabegin, dateFinish, sensorID, dispositiveID).subscribe(
           data => {
@@ -191,15 +181,13 @@ export class SensoresComponent implements OnInit{
     this.galleta.set('sensorID', item.id)
     const UglyDateFinish = new Date()
     let dateFinish = UglyDateFinish.toISOString()
-    dateFinish = dateFinish.split('.')[0]
-    dateFinish = dateFinish.replace('T', ' ')
+    dateFinish = dateFinish.split('.')[0].replace('T', ' ')
     const dispositiveIDStr = this.galleta.get('DispositiveID')
     const dispositiveID = parseInt(dispositiveIDStr)
     const weekDataBegin = new Date(UglyDateFinish)
     weekDataBegin.setDate(UglyDateFinish.getDate() - 7)
     let weekdatabegin = weekDataBegin.toISOString()
-    weekdatabegin = weekdatabegin.split('.')[0]
-    weekdatabegin = weekdatabegin.replace('T', ' ')
+    weekdatabegin = weekdatabegin.split('.')[0].replace('T', ' ')
 
     this.apiService.ReportBySensor(weekdatabegin, dateFinish, item.id, dispositiveID).subscribe(
       data => {
@@ -213,7 +201,7 @@ export class SensoresComponent implements OnInit{
       }
     )
   }
-
+  
   works(sensorID:number){
     const dispositiveIDStr = this.galleta.get('DispositiveID')
     const dispositiveID = parseInt(dispositiveIDStr)
