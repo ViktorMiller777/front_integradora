@@ -18,24 +18,35 @@
                     <thead>
                         <tr>
                             <th>Valor</th>
-                            <th>Unidad</th>
-                            <th>Fecha</th>
                         </tr>
                     </thead>
-                    <tbody *ngFor="let report of reportTime">
+                    <tbody>
                         <div *ngIf="loading" class="loading">
                             <h3>Cargando datos del sensor...</h3>
                             <p>Esto puede tardar unos segundos.</p>
                             <nb-spinner *ngIf="loading"></nb-spinner>
                         </div>
-                        <tr *ngFor="let item of report.data">
-                            <td>{{item.value}}</td>
-                            <td>{{item.identifier}}</td>
-                            <td>{{item.timestamp}}</td>
+                        <tr *ngFor="let report of paginatedReports" class="tr">
+                            <td *ngFor="let item of report.data">{{item.value}} {{item.identifier}}</td>
                         </tr>
                     </tbody>
                 </table>
+                <div class="pagination-controls">
+                    <button nbButton (click)="prevPage()" [disabled]="currentPage === 1">Anterior</button>
+                    <span>Página {{currentPage}}</span>
+                    <button nbButton (click)="nextPage()"
+                        [disabled]="currentPage * itemsPerPage >= reportTime.length">Siguiente</button>
+                </div>
             </nb-card-body>
         </nb-card>
     </nb-card>
 </div>
+
+                    <tr>
+                        <td>Valor</td>
+                        <td>Unidad</td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                    </tr>

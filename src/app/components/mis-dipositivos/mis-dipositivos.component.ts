@@ -50,7 +50,7 @@ export class MisDipositivosComponent implements OnInit{
                 this.socketexd.emit('data:emit', {type:'WatchAllData', dispositiveID:idStr})
                 console.log('idstr',idStr)
                 this.socketexd.listen('data:listen').subscribe(lastData => {
-                  console.log('datos recibidos:', lastData)
+                  // console.log('datos recibidos:', lastData)
                   const datos:[{
                     sensorID: number
                     data:{

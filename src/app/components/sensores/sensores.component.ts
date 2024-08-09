@@ -11,13 +11,15 @@ import { SocketService } from 'src/app/service/socket.service'
 })
 export class SensoresComponent implements OnInit{
   loading: boolean = true
-  currentPage = 1;
-  itemsPerPage = 15;
   reportTime: any[] = []
   data: any[] = []
   sensor: any[] = []
   sensorValue: any[] = []
   dispositivo: any[] = []
+  paginatedReports: any[] = []
+  currentPage: number = 1
+  itemsPerPage: number = 15
+
 
   constructor(private apiService:ApiService, private galleta:CookieService, private tostatda: NbToastrService, private socket:SocketService){}
 
@@ -128,7 +130,7 @@ export class SensoresComponent implements OnInit{
   ngOnInit(){
     const DispositiveIDStr = this.galleta.get('DispositiveID')
     const DispositiveID = parseInt(DispositiveIDStr)
-    this.apiService.sensoresDeDispositivo(DispositiveID).subscribe(
+    this.apiService.sensoresDeDispositivo(7).subscribe(
       data => {
         this.sensor = data
         console.log('Sensores del dispositivo',data)
@@ -147,7 +149,7 @@ export class SensoresComponent implements OnInit{
         this.apiService.ReportBySensor(weekdatabegin, dateFinish, sensorID, dispositiveID).subscribe(
           data => {
             this.reportTime = data
-            console.log('reporte',data)
+            console.log('Reportes',data)
             this.loading = false
           },error => {
             if (error.status === 404){
@@ -156,19 +158,20 @@ export class SensoresComponent implements OnInit{
           }
         )
         const dispositiveIDSocketStr = this.galleta.get('DispositiveID')
+        // cambie para poder utilizar 
         const dispositiveIDSocket = parseInt(dispositiveIDSocketStr)
         const sensorIDSocketStr = this.galleta.get('sensorID')
         const sensorIDSocket = parseInt(sensorIDSocketStr)
         //SOCKETE SOCKETE SOCKETE SOCKETE SOCKETESOCKETESOCKETE SOCKETE SOCKETESOCKETE
-        this.socket.emit('data:emit',{typer:'WatchLastData',dispositiveID:dispositiveIDSocket ,sensorID:sensorIDSocket }) //QUITAR EL HARDCODEO Y PONER EL VALOR DESDE LAS COOKIES
-        this.socket.listen('WatchLastData').subscribe(lastData =>{
+        this.socket.emit('data:emit',{typer:'WatchLastData',dispositiveID:dispositiveIDSocket ,sensorID:sensorIDSocketStr}) //QUITAR EL HARDCODEO Y PONER EL VALOR DESDE LAS COOKIES
+        this.socket.listen('data:listen').subscribe(lastData =>{
           console.log('datos recibidos',lastData)
         })
         //SOCKETE SOCKETE SOCKETE SOCKETE SOCKETESOCKETESOCKETE SOCKETE SOCKETESOCKETE
 
       }
     )
-
+    
     const dispositiveIDStr = this.galleta.get('DispositiveID')
     const dispositiveID = parseInt(dispositiveIDStr)
     const sensorIDStr = this.galleta.get('sensorID')
@@ -181,6 +184,8 @@ export class SensoresComponent implements OnInit{
     )
   }
 
+
+  //^^^^ESTO DE ARRIBA ES LO QUE LE AGREGUE PAR APODER VERIFICAR LA PAGINACION DE LA TABLA DE LOS SENSORES ^^^^
   sensorClick(item: any): void {
     this.works(item.id)
     this.galleta.set('sensorID', item.id)
@@ -207,10 +212,6 @@ export class SensoresComponent implements OnInit{
         }
       }
     )
-  }
-
-  dateClick(): void{
-    // this.reporteDeFechas(item)
   }
 
   works(sensorID:number){

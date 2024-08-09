@@ -43,3 +43,13 @@ th{
     gap:50px;
     align-items: center;
 }
+.pagination-controls {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 20px;
+}
+
+.pagination-controls button {
+  margin: 0 10px;
+}

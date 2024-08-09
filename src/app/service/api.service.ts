@@ -70,7 +70,9 @@ export class ApiService {
 
   //servicio para mostrar los sensores de un dispositivo por su dispositiveID
   sensoresDeDispositivo(dispositiveID: number): Observable<any> {
-    return this.http.post<any>(`${this.url}/api/sensors/sensor-list`, {dispositiveID});
+    const token = this.galleta.get('token')
+    const headers = new HttpHeaders().set('Authorization',`Bearer ${token}`,)
+    return this.http.post<any>(`${this.url}/api/sensors/sensor-list`, {dispositiveID}, {headers});
   }
 
   //servicio para obtener el ultimo dato de un sensor en especifico 
@@ -80,8 +82,8 @@ export class ApiService {
 
   //servicio para obtener los Id de todos los dispositivos del usuario logueado
   HomeDispositivos(): Observable<number[]> {
-    const token = this.galleta.get('token');
-    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+    const token = this.galleta.get('token')
+    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`)
     return this.http.get<any[]>(`${this.url}/api/dispositives/show`, { headers }).pipe(
       map(response => {
         return response.map(dispositivo => dispositivo.DispositiveID);
@@ -91,6 +93,8 @@ export class ApiService {
 
   //servicio para obtener todos los datos por fecha de un sensor en especifico y su dispositivo
   ReportBySensor(dateBegin:string, dateFinish:string, sensorID:number, dispositiveID:number){
-    return this.http.post<any>(`${this.url}/api/sensors/report-by-sensor`, {dateBegin, dateFinish, sensorID, dispositiveID})
+    const token = this.galleta.get('token')
+    const headers = new HttpHeaders().set('Authorization',`Bearer ${token}`)
+    return this.http.post<any>(`${this.url}/api/sensors/report-by-sensor`, {dateBegin, dateFinish, sensorID, dispositiveID}, {headers})
   }
 }
