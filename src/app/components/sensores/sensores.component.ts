@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core'
 import { NbToastrService } from '@nebular/theme'
 import { CookieService } from 'ngx-cookie-service'
 import { ApiService } from 'src/app/service/api.service'
+import { SocketService } from 'src/app/service/socket.service'
 
 @Component({
   selector: 'app-sensores',
@@ -18,14 +19,14 @@ export class SensoresComponent implements OnInit{
   sensorValue: any[] = []
   dispositivo: any[] = []
 
-  constructor(private apiService:ApiService, private galleta:CookieService, private tostatda: NbToastrService){}
+  constructor(private apiService:ApiService, private galleta:CookieService, private tostatda: NbToastrService, private socket:SocketService){}
 
   filtrarPorFecha(selectedValue: string): void {
 
     const UglyDateFinish = new Date()
-    let dateFinish = UglyDateFinish.toISOString()
-    dateFinish = dateFinish.split('.')[0]
-    dateFinish = dateFinish.replace('T', ' ')
+    UglyDateFinish.setHours(UglyDateFinish.getHours() - 6); // Resta 6 horas
+    let dateFinish = UglyDateFinish.toISOString();
+    dateFinish = dateFinish.split('.')[0].replace('T', ' ');
 
     const sensorIDStr = this.galleta.get('sensorID')
     const sensorID = parseInt(sensorIDStr)
@@ -154,6 +155,17 @@ export class SensoresComponent implements OnInit{
             }
           }
         )
+        const dispositiveIDSocketStr = this.galleta.get('DispositiveID')
+        const dispositiveIDSocket = parseInt(dispositiveIDSocketStr)
+        const sensorIDSocketStr = this.galleta.get('sensorID')
+        const sensorIDSocket = parseInt(sensorIDSocketStr)
+        //SOCKETE SOCKETE SOCKETE SOCKETE SOCKETESOCKETESOCKETE SOCKETE SOCKETESOCKETE
+        this.socket.emit('data:emit',{typer:'WatchLastData',dispositiveID:dispositiveIDSocket ,sensorID:sensorIDSocket }) //QUITAR EL HARDCODEO Y PONER EL VALOR DESDE LAS COOKIES
+        this.socket.listen('WatchLastData').subscribe(lastData =>{
+          console.log('datos recibidos',lastData)
+        })
+        //SOCKETE SOCKETE SOCKETE SOCKETE SOCKETESOCKETESOCKETE SOCKETE SOCKETESOCKETE
+
       }
     )
 

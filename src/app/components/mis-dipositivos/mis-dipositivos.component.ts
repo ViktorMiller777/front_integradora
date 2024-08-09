@@ -12,7 +12,20 @@ import { SocketService } from 'src/app/service/socket.service'
 export class MisDipositivosComponent implements OnInit{
 
   dispositiveIDs: number[] = []
-  dispositivo: any[] = []
+
+  dispositivo:[{
+    DispositiveID: number
+    Sensors:[{
+      sensorID:number
+      sensorType:string
+      unit:string
+      active:boolean
+      data:[{value:string}]
+    }]
+    name:string
+    type:string
+    userdID:number
+  }] | null = null
   loading: boolean = true
 
   constructor(private apiService: ApiService, private galleta:CookieService, private router:Router, private socketexd: SocketService){}
@@ -22,15 +35,36 @@ export class MisDipositivosComponent implements OnInit{
       data => {
         this.dispositivo = data
         console.log('dispositivos', data)
+
         this.apiService.HomeDispositivos().subscribe(
           data => {
             this.dispositiveIDs = data
             if (this.dispositiveIDs && this.dispositiveIDs.length > 0) {
-              this.dispositiveIDs.forEach(id => {
-                const idStr = id.toString()
-                this.socketexd.emit('data:emit', {type:'WatchAllData', dispositiveID: idStr})
-                this.socketexd.listen('WatchAllData').subscribe(lastData =>{
-                  console.log('datos recibidos:',lastData)
+
+              this.dispositivo!.forEach((dispositivo,i) => {
+                const idStr = dispositivo.DispositiveID
+
+                console.log('value mapeado',this.dispositivo!)
+                console.log('id dispositivos',idStr)
+
+                this.socketexd.emit('data:emit', {type:'WatchAllData', dispositiveID:idStr})
+                console.log('idstr',idStr)
+                this.socketexd.listen('data:listen').subscribe(lastData => {
+                  console.log('datos recibidos:', lastData)
+                  const datos:[{
+                    sensorID: number
+                    data:{
+                      value:string
+                    }
+                  }] = lastData.data
+                  datos.forEach(data =>  {
+                    dispositivo!.Sensors.forEach((Sensor,o) => {
+                      if (Sensor.sensorID === data.sensorID){
+                        this.dispositivo![i].Sensors[o].data[0].value = data.data.value
+                      }
+                    })
+                  }
+                  )
                 })
               })
             }
