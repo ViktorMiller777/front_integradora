@@ -11,6 +11,9 @@ export class AppComponent implements OnInit{
   isLogged: boolean = false
   title = 'Integral';
   selectedItem =''
+  isBold = false;
+  isItalic = true;
+  isUnderline = false;
 
   constructor(private galleta:CookieService, private router:Router){}
 

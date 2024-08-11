@@ -32,3 +32,86 @@ img{
     height: 200px;
     border-radius: 10px;    
 }
+.about-habits{
+    width: 50%;
+    -ms-flex-align: center;
+}
+.header-1{
+    display: flex;
+    flex-direction: row;
+}
+.box-img-1{
+    display: flex;
+    width: 60%;
+    justify-content: center;
+    align-items: center;
+    background-color: aquamarine;
+}
+.devices{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+}
+.title-1{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-bottom: 1px solid rgb(60, 202, 67);
+}
+.title-2{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-bottom: 1px solid rgb(60, 202, 67);
+    border-top: 1px solid rgb(60, 202, 67);
+}
+.dis-brazalete{
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.dis-pesa{
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+}
+.titulo{
+    text-align: center;
+    width: 90%;
+    background-color: rgb(60, 202, 67);
+    border-radius: 5px;
+}
+.pasos{
+    display: flex;
+    flex-direction: row;
+    margin: 25px;
+}
+h4{
+    text-align: center;
+}
+.box-pasos{
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+    background-color: blue;
+}
+.box-img-habit{
+    width: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.img-habit{
+    width: 250px;
+    height: 250px;
+}
+.box-habit{
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
