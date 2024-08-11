@@ -44,7 +44,7 @@ export class SensoresComponent implements OnInit{
      
         this.apiService.ReportBySensor(weekdatabegin, dateFinish, sensorID, dispositiveID).subscribe(
           data => {
-            this.reportTime = data
+            this.reportTime = data[0].data
             console.log('reporte por semana',data)
             data
           },error => {
@@ -66,7 +66,7 @@ export class SensoresComponent implements OnInit{
         this.apiService.ReportBySensor(daydatabegin, dateFinish, sensorID, dispositiveID).subscribe(
           data => {
             console.log('reporte por dia',data)
-            this.reportTime = data
+            this.reportTime = data[0].data
           },error => {
             if (error.status === 404){
               this.tostatda.warning('Este sensor no tiene registro en este limite de tiempo','Sin registros :(')
@@ -86,7 +86,7 @@ export class SensoresComponent implements OnInit{
         this.apiService.ReportBySensor(hrdatabegin, dateFinish, sensorID, dispositiveID).subscribe(
           data => {
             console.log('reporte por 1hora',data)
-            this.reportTime = data
+            this.reportTime = data[0].data
           },error => {
             if (error.status === 404){
               this.tostatda.warning('Este sensor no tiene registro en este limite de tiempo','Sin registros :(')
@@ -106,7 +106,7 @@ export class SensoresComponent implements OnInit{
         this.apiService.ReportBySensor(middatabegin, dateFinish, sensorID, dispositiveID).subscribe(
           data => {
             console.log('reporte por 30min',data)
-            this.reportTime = data
+            this.reportTime = data[0].data
           },error => {
             if (error.status === 404){
               this.tostatda.warning('Este sensor no tiene registro en este limite de tiempo','Sin registros :(')
@@ -138,7 +138,7 @@ export class SensoresComponent implements OnInit{
             
         this.apiService.ReportBySensor(weekdatabegin, dateFinish, sensorID, dispositiveID).subscribe(
           data => {
-            this.reportTime = data
+            this.reportTime = data[0].data
             console.log('Reportes',data)
             this.loading = false
           },error => {
@@ -149,11 +149,16 @@ export class SensoresComponent implements OnInit{
         )
         const dispositiveIDSocketStr = this.galleta.get('DispositiveID')
         const sensorIDSocketStr = this.galleta.get('sensorID')
+      
         
         //SOCKETE SOCKETE SOCKETE SOCKETE SOCKETESOCKETESOCKETE SOCKETE SOCKETESOCKETE
         this.socket.emit('data:emit',{typer:'WatchLastData',dispositiveID:dispositiveIDSocketStr ,sensorID:sensorIDSocketStr}) //QUITAR EL HARDCODEO Y PONER EL VALOR DESDE LAS COOKIES
         this.socket.listen('data:listen').subscribe(lastData =>{
           console.log('datos recibidos WatchLastData',lastData)
+          if(lastData.sensorID == parseInt(sensorIDSocketStr)){
+            this.reportTime.shift()
+            this.reportTime.push(lastData.data)
+          }
         })
         //SOCKETE SOCKETE SOCKETE SOCKETE SOCKETESOCKETESOCKETE SOCKETE SOCKETESOCKETE
 
@@ -189,7 +194,7 @@ export class SensoresComponent implements OnInit{
 
     this.apiService.ReportBySensor(weekdatabegin, dateFinish, item.id, dispositiveID).subscribe(
       data => {
-        this.reportTime = data
+        this.reportTime = data[0].data
         console.log('reporte',data)
         data
       },error => {

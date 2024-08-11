@@ -23,7 +23,7 @@ import { SocketIoConfig } from 'ngx-socket-io';
 import { SocketIoModule } from 'ngx-socket-io';
 import { NbButtonGroupModule } from '@nebular/theme';
 
-const conf: SocketIoConfig = { url:'http://127.0.0.1:3333', options:{transports:['websocket']}}
+const conf: SocketIoConfig = { url:'http://146.190.145.131:3333', options:{transports:['websocket']}}
 
 
 @NgModule({

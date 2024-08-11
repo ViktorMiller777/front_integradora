@@ -22,13 +22,13 @@
                             <th>Fecha</th>
                         </tr>
                     </thead>
-                    <tbody *ngFor="let report of reportTime">
+                    <tbody>
                         <div *ngIf="loading" class="loading">
                             <h3>Cargando datos del sensor...</h3>
                             <p>Esto puede tardar unos segundos.</p>
                             <nb-spinner *ngIf="loading"></nb-spinner>
                         </div>
-                        <tr *ngFor="let item of report.data">
+                        <tr *ngFor="let item of reportTime">
                             <td>{{item.value}}</td>
                             <td>{{item.identifier}}</td>
                             <td>{{item.timestamp}}</td>

@@ -33,7 +33,7 @@ interface HomeDispositivosResponse{
   providedIn: 'root'
 })
 export class ApiService {
-  url = 'http://127.0.0.1:3333'
+  url = 'http://146.190.145.131:3333'
 
   constructor(private http:HttpClient, private galleta:CookieService) { }
 
