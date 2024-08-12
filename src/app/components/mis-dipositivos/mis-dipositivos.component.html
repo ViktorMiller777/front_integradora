@@ -24,14 +24,14 @@
                     <tbody>
                       <tr>
                         <td *ngFor="let sensor of item.Sensors">
-                          <div *ngIf="sensor.sensorType!='Pantalla'">
+                          <div *ngIf="sensor.sensorType!='Pantalla' &&sensor.active==true">
                             <button class="sbtn" nbButton status="success"  (click)="dispositivoClick(item.DispositiveID, sensor.sensorID)">{{ sensor.sensorType }} : {{sensor.sensorID}}</button>
                           </div>
                        </td>
                       </tr>
                       <tr>
                         <td *ngFor="let sensor of item.Sensors">
-                          <div *ngIf="sensor.sensorType!='Pantalla'">
+                          <div *ngIf="sensor.sensorType!='Pantalla'&&sensor.active==true">
                             <span *ngIf="sensor.data[0] == null">Sin datos</span>
                             <span *ngIf="sensor.data[0] != null">{{ sensor.data[0].value}} {{ sensor.unit }}</span>
 
