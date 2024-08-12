@@ -68,6 +68,11 @@ export class ApiService {
     return this.http.get<any>(`${this.url}/api/dispositives/show`,{headers})
   }
 
+  crearDispositivo(data:any):Observable<any>{
+    const token = this.galleta.get('token')
+    const headers = new  HttpHeaders().set('Authorization',`Bearer ${token}`)
+    return this.http.post<any>(`${this.url}/api/dispositives/create`,data,{headers})
+  }
   //servicio para mostrar los sensores de un dispositivo por su dispositiveID
   sensoresDeDispositivo(dispositiveID: number): Observable<any> {
     const token = this.galleta.get('token')

@@ -4,6 +4,8 @@ import { CookieService } from 'ngx-cookie-service'
 import { Observable, Subscription } from 'rxjs'
 import { ApiService } from 'src/app/service/api.service'
 import { SocketService } from 'src/app/service/socket.service'
+import { DeviceDialogComponent } from '../device-dialog/device-dialog.component'
+import { NbDialogService } from '@nebular/theme'
 
 @Component({
   selector: 'app-mis-dipositivos',
@@ -30,7 +32,7 @@ export class MisDipositivosComponent implements OnInit, OnDestroy{
   loading: boolean = true
   listener: Subscription | null = null
 
-  constructor(private apiService: ApiService, private galleta:CookieService, private router:Router, private socketexd: SocketService){}
+  constructor(private dialogService: NbDialogService,private apiService: ApiService, private galleta:CookieService, private router:Router, private socketexd: SocketService){}
   ngOnDestroy(): void {
     this.socketexd.disconnect()
     if(this.listener!=null){
@@ -54,7 +56,8 @@ export class MisDipositivosComponent implements OnInit, OnDestroy{
 
                 this.socketexd.emit('data:emit', {type:'WatchAllData', dispositiveID:idStr})
                 this.listener = this.socketexd.listen('data:listen').subscribe(lastData => {
-                  if(lastData.type=="allData"){
+
+                  if(lastData.type=="AllData"){
                     const datos:[{
                       sensorID: number
                       data:{
@@ -96,4 +99,17 @@ export class MisDipositivosComponent implements OnInit, OnDestroy{
       this.listener.unsubscribe()
     }
   }  
+  openDialog() {
+    this.dialogService.open(DeviceDialogComponent)
+      .onClose.subscribe(deviceData => {
+        if (deviceData) {
+
+          console.log('Dispositivo registrado:', deviceData)
+          this.apiService.getLastDataMejorado().subscribe(
+            data => {
+              this.dispositivo = data
+            })
+          }
+      });
+  }
 }

@@ -4,7 +4,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { NbThemeModule, NbButtonModule, NbSelectModule, NbLayoutModule, NbCardModule, NbFormFieldModule } from '@nebular/theme';
+import { NbThemeModule, NbButtonModule, NbSelectModule, NbLayoutModule, NbCardModule, NbFormFieldModule, NbDialogModule, NbInputModule } from '@nebular/theme';
 import { NbEvaIconsModule } from '@nebular/eva-icons';
 
 // Importacion de modulos de los componentes
@@ -22,6 +22,8 @@ import { CookieService } from 'ngx-cookie-service';
 import { SocketIoConfig } from 'ngx-socket-io';
 import { SocketIoModule } from 'ngx-socket-io';
 import { NbButtonGroupModule } from '@nebular/theme';
+import { DeviceDialogComponent } from './components/device-dialog/device-dialog.component';
+import { FormGroupDirective, FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 const conf: SocketIoConfig = { url:'http://64.23.129.36:3333', options:{transports:['websocket']}}
 
@@ -30,6 +32,7 @@ const conf: SocketIoConfig = { url:'http://64.23.129.36:3333', options:{transpor
   declarations: [
     AppComponent,
     NotFoundComponent,
+    DeviceDialogComponent,
     //nota, no importar el componente aqui porque ya se importa desde el module del propio componente
   ],
   imports: [
@@ -55,7 +58,13 @@ const conf: SocketIoConfig = { url:'http://64.23.129.36:3333', options:{transpor
     BrowserAnimationsModule,
     NbThemeModule.forRoot({ name: 'default' }),
     NbLayoutModule,
-    NbEvaIconsModule
+    NbEvaIconsModule,
+    FormsModule,    
+    NbDialogModule.forRoot(),
+    ReactiveFormsModule,
+    NbInputModule
+    
+    
   ],
   providers: [
     CookieService
