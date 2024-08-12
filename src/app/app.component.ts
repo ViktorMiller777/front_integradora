@@ -9,7 +9,8 @@ import { CookieService } from 'ngx-cookie-service';
 })
 export class AppComponent {
   title = 'Integral';
-  selectedItem = '';
+  selectedItem = ''; 
+  role = this.galleta.get('role')
 
   constructor(private galleta: CookieService, private router: Router) {}
 

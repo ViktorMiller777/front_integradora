@@ -7,8 +7,10 @@
             </div>
             <div class="nav-actions">
                 <button *ngIf="isLoggedIn()" nbButton [routerLink]="['/mis-dispositivos']">Mis Dispositivos</button>
+                <button *ngIf="role=='admin'" nbButton [routerLink]="['/lista-usuarios']">Dispositivos de usuarios</button>
                 <button *ngIf="!isLoggedIn()" nbButton [routerLink]="['/login']">Iniciar sesión</button>
                 <button *ngIf="isLoggedIn()" nbButton (click)="logout()">Cerrar sesión</button>
+
             </div>
         </div>
     </nb-layout-header>

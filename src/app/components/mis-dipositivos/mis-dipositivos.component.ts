@@ -32,6 +32,7 @@ export class MisDipositivosComponent implements OnInit, OnDestroy{
   loading: boolean = true
   listener: Subscription | null = null
 
+
   constructor(private dialogService: NbDialogService,private apiService: ApiService, private galleta:CookieService, private router:Router, private socketexd: SocketService){}
   ngOnDestroy(): void {
     this.socketexd.disconnect()
@@ -42,52 +43,101 @@ export class MisDipositivosComponent implements OnInit, OnDestroy{
 
   ngOnInit() {
     this.socketexd.connect()
-    this.apiService.getLastDataMejorado().subscribe(
-      data => {
-        this.dispositivo = data
+    let role = this.galleta.get('role')
+    if(role == 'admin'){
+        let userID = this.galleta.get('userID')
+        this.apiService.getLastDataMejoradoPorID(userID).subscribe( data =>{
+          this.dispositivo = data
 
-        this.apiService.HomeDispositivos().subscribe(
-          data => {
-            this.dispositiveIDs = data
-            if (this.dispositiveIDs && this.dispositiveIDs.length > 0) {
-
-              this.dispositivo!.forEach((dispositivo,i) => {
-                const idStr = dispositivo.DispositiveID
-
-                this.socketexd.emit('data:emit', {type:'WatchAllData', dispositiveID:idStr})
-                this.listener = this.socketexd.listen('data:listen').subscribe(lastData => {
-
-                  if(lastData.type=="AllData"){
-                    const datos:[{
-                      sensorID: number
-                      data:{
-                        value:string
-                      }
-                    }] = lastData.data
-                    datos.forEach(data =>  {
-                      dispositivo!.Sensors.forEach((Sensor,o) => {
-                        if (Sensor.sensorID === data.sensorID){
-                          this.dispositivo![i].Sensors[o].data[0].value = data.data.value
+          this.apiService.HomeDispositivos().subscribe(
+            data => {
+              this.dispositiveIDs = data
+              if (this.dispositiveIDs && this.dispositiveIDs.length > 0) {
+  
+                this.dispositivo!.forEach((dispositivo,i) => {
+                  const idStr = dispositivo.DispositiveID
+  
+                  this.socketexd.emit('data:emit', {type:'WatchAllData', dispositiveID:idStr})
+                  this.listener = this.socketexd.listen('data:listen').subscribe(lastData => {
+  
+                    if(lastData.type=="AllData"){
+                      const datos:[{
+                        sensorID: number
+                        data:{
+                          value:string
                         }
-                      })
+                      }] = lastData.data
+                      datos.forEach(data =>  {
+                        dispositivo!.Sensors.forEach((Sensor,o) => {
+                          if (Sensor.sensorID === data.sensorID){
+                            this.dispositivo![i].Sensors[o].data[0].value = data.data.value
+                          }
+                        })
+                      }
+                      )
+  
                     }
-                    )
-
-                  }
+                  })
                 })
-              })
+              }
+              this.loading = false
+            },
+            error => {
+              this.loading = false
             }
-            this.loading = false
-          },
-          error => {
-            this.loading = false
-          }
+          )
+        }
         )
-      },
-      error => {
-        this.loading = false
-      }
-    )
+    }else{
+      this.apiService.getLastDataMejorado().subscribe(
+        data => {
+          this.dispositivo = data
+
+            this.apiService.HomeDispositivos().subscribe(
+              data => {
+                this.dispositiveIDs = data
+                if (this.dispositiveIDs && this.dispositiveIDs.length > 0) {
+    
+                  this.dispositivo!.forEach((dispositivo,i) => {
+                    const idStr = dispositivo.DispositiveID
+    
+                    this.socketexd.emit('data:emit', {type:'WatchAllData', dispositiveID:idStr})
+                    this.listener = this.socketexd.listen('data:listen').subscribe(lastData => {
+    
+                      if(lastData.type=="AllData"){
+                        const datos:[{
+                          sensorID: number
+                          data:{
+                            value:string
+                          }
+                        }] = lastData.data
+                        datos.forEach(data =>  {
+                          dispositivo!.Sensors.forEach((Sensor,o) => {
+                            if (Sensor.sensorID === data.sensorID){
+                              this.dispositivo![i].Sensors[o].data[0].value = data.data.value
+                            }
+                          })
+                        }
+                        )
+    
+                      }
+                    })
+                  })
+                }
+                this.loading = false
+              },
+              error => {
+                this.loading = false
+              }
+            )
+          
+
+        },
+        error => {
+          this.loading = false
+        }
+      )
+    }
   }
 
   dispositivoClick(DispositiveId: number, sensorId: number) {

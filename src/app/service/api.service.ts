@@ -7,7 +7,8 @@ import { map } from 'rxjs';
 
 interface LoginResponse{
   token:{
-    token:string
+    token:string,
+    role:number
   }
 }
 
@@ -66,6 +67,12 @@ export class ApiService {
     const token = this.galleta.get('token')
     const headers = new  HttpHeaders().set('Authorization',`Bearer ${token}`)
     return this.http.get<any>(`${this.url}/api/dispositives/show`,{headers})
+  }
+
+  getLastDataMejoradoPorID(userID:string):Observable<any>{
+    const token = this.galleta.get('token')
+    const headers = new  HttpHeaders().set('Authorization',`Bearer ${token}`)
+    return this.http.get<any>(`${this.url}/api/dispositives/show/${userID}`,{headers})
   }
 
   crearDispositivo(data:any):Observable<any>{
