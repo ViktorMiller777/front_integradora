@@ -1,21 +1,16 @@
-<div class="container">
-    <nb-card class="box-card">
-        <nb-card-header class="header">
-            <h1>Verificar Codigo</h1>
+<div class="verification-container">
+    <nb-card class="verification-card">
+        <nb-card-header class="verification-header">
+            <h1>Verificar Código</h1>
         </nb-card-header>
         <nb-card-body>
-            <form class="form" [formGroup]="verifyForm" (ngSubmit)="verify()">
-                <p>Se mando un codigo de verificacion a tu correo, ingresa el codigo para poder verificar tu cuenta</p>
-                <div class="box-input">
-                    <label>Email</label>
-                    <input nbInput formControlName="email" placeholder="Ingresa tu Email">
+            <form class="verification-form" [formGroup]="verifyForm" (ngSubmit)="verify()">
+                <p class="description">Ingresa el código que hemos enviado a tu correo para verificar tu cuenta.</p>
+                <div class="form-group">
+                    <input id="verificationCode" class="form-control" formControlName="verificationCode" placeholder="Ingresa tu Código de Verificación">
                 </div>
-                <div class="box-input">
-                    <label>Codigo verificacion</label>
-                    <input nbInput formControlName="verificationCode" placeholder="Ingresa tu Codigo de verificacion">
-                </div>
-                <div class="box-input">
-                    <button nbButton status="success" [disabled]="!verifyForm.valid">Enviar</button>
+                <div class="form-group">
+                    <button type="submit" nbButton status="success" [disabled]="!verifyForm.valid" class="submit-button">Enviar</button>
                 </div>
             </form>
         </nb-card-body>

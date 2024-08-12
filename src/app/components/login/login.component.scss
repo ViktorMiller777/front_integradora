@@ -1,34 +1,80 @@
-.container{
+.login-container {
     display: flex;
     justify-content: center;
     align-items: center;
+    height: 100%; /* Ocupa toda la altura de la ventana */
 }
-.header{
-    display: flex;
-    justify-content: center;
-}
-.card{
-    width: 30%;
-}
-.form{
-    display: flex;
-    justify-content: center;
-    flex-direction: column;
-    align-content: center;
+
+.login-card {
     width: 100%;
-    gap:10px
+    max-width: 500px; /* Ajusta según sea necesario */
+    border-radius: 12px; /* Bordes redondeados */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Sombra sutil */
+    padding: 20px; /* Espaciado interno */
+    background-color: #ffffff; /* Fondo blanco para el card */
 }
-.input-box{
+
+.login-header {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.login-form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px; /* Espaciado entre los elementos del formulario */
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 5px; /* Espaciado entre la etiqueta y el campo */
+}
+
+.form-control {
+    width: 100%; /* Asegura que el campo de entrada ocupe el 100% del contenedor */
+    padding: 12px; /* Espaciado interno */
+    border-radius: 8px; /* Bordes redondeados */
+    border: 1px solid #ddd; /* Color del borde */
+    box-sizing: border-box; /* Incluye padding y border en el ancho total */
+    font-size: 16px; /* Tamaño de la fuente */
+}
+
+.submit-button {
+    width: 100%; /* Asegura que el botón ocupe el 100% del contenedor */
+    padding: 12px; /* Espaciado interno */
+    border-radius: 8px; /* Bordes redondeados */
+    font-size: 16px; /* Tamaño de la fuente */
+}
+
+.create-account-button {
+    width: 100%; /* Asegura que el botón ocupe el 100% del contenedor */
+    padding: 12px; /* Espaciado interno */
+    border-radius: 8px; /* Bordes redondeados */
+    font-size: 16px; /* Tamaño de la fuente */
+    background-color: #007bff; /* Color de fondo del botón */
+    color: #ffffff; /* Color del texto del botón */
+    border: none; /* Quita el borde por defecto */
+}
+
+.create-account-button:hover {
+    background-color: #0056b3; /* Color de fondo al pasar el ratón */
+}
+
+.links, .verification {
     display: flex;
     justify-content: center;
     flex-direction: column;
+    gap: 10px; /* Espaciado entre los enlaces */
+    margin-top: 15px;
 }
-.footer{
-    display: flex;
-    justify-content: space-between;
+
+.link {
+    color: #007bff; /* Color del enlace */
+    text-decoration: none; /* Quita el subrayado de los enlaces */
+    font-size: 14px; /* Tamaño de la fuente */
 }
-.verificar{
-    display: flex;
-    justify-content: center;
-    align-items: center;
+
+.link:hover {
+    text-decoration: underline; /* Subraya el enlace al pasar el ratón */
 }

@@ -21,6 +21,7 @@ import { NuevaContrasenaModule } from './components/nueva-contrasena/nueva-contr
 import { CookieService } from 'ngx-cookie-service';
 import { SocketIoConfig } from 'ngx-socket-io';
 import { SocketIoModule } from 'ngx-socket-io';
+import { NbButtonGroupModule } from '@nebular/theme';
 
 const conf: SocketIoConfig = { url:'http://64.23.129.36:3333', options:{transports:['websocket']}}
 
@@ -44,6 +45,7 @@ const conf: SocketIoConfig = { url:'http://64.23.129.36:3333', options:{transpor
     VerificarCodigoModule,
     SocketIoModule.forRoot(conf),
 
+    NbButtonGroupModule,
     NbSelectModule,
     NbFormFieldModule,
     NbCardModule,

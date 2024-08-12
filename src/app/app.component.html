@@ -1,13 +1,14 @@
 <nb-layout>
     <nb-layout-header fixed class="bar">
         <div class="nav-bar">
-            <img class="logo" src="assets/img/Healthy_Logo_Heart.png" [routerLink]="['/']">
+            <div class="logo-container">
+                <img class="logo" src="assets/img/Healthy_Logo_Heart.png" [routerLink]="['/']">
+                <span class="logo-text">Healthy</span>
+            </div>
             <div class="nav-actions">
-                <nb-select class="select" placeholder="Opciones" [(selected)]="selectedItem">
-                    <nb-option [routerLink]="['/mis-dispositivos']" value="">Mis Dispositivos</nb-option>
-                    <nb-option *ngIf="!isLogged" [routerLink]="['/login']" value="1">Iniciar sesion</nb-option>
-                    <nb-option *ngIf="isLogged" (click)="logout()" value="2">Cerrar Sesion</nb-option>
-                </nb-select>
+                <button *ngIf="isLoggedIn()" nbButton [routerLink]="['/mis-dispositivos']">Mis Dispositivos</button>
+                <button *ngIf="!isLoggedIn()" nbButton [routerLink]="['/login']">Iniciar sesión</button>
+                <button *ngIf="isLoggedIn()" nbButton (click)="logout()">Cerrar sesión</button>
             </div>
         </div>
     </nb-layout-header>
@@ -16,9 +17,8 @@
     </nb-layout-column>
     <nb-layout-footer>
         <div class="footer">
-            <p>BestTeam</p>
-            <p>Pagina desarrollada por el equipo mas pro de 5 cuatri >:D</p>
-            <p>💚HealthyApp®</p>
+            <p>Integradora II</p>
+            <p>HealthyApp💚</p>
         </div>
     </nb-layout-footer>
 </nb-layout>
