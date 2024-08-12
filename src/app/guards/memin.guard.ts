@@ -9,19 +9,16 @@ import { Observable } from 'rxjs';
 })
 export class MeminGuard implements CanActivate {
 
-  constructor(private galleta:CookieService, private tomate:Router, private tostada:NbToastrService){}
+  constructor(private galleta: CookieService, private tomate: Router, private tostada: NbToastrService) { }
 
   canActivate(
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
-      if(this.galleta.get('token')){
-        return true;
-      }
-      this.tostada.danger('Error','Por favor primero inicia sesion')
-      this.tomate.navigate(["/login"])
-      return false;
+    if (this.galleta.get('token')) {
+      return true;
+    }
+    this.tostada.danger('Error', 'Por favor primero inicia sesion')
+    this.tomate.navigate(["/login"])
+    return false;
   }
-
-
-  
 }

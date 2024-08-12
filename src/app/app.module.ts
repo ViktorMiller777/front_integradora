@@ -24,6 +24,7 @@ import { SocketIoModule } from 'ngx-socket-io';
 import { NbButtonGroupModule } from '@nebular/theme';
 import { DeviceDialogComponent } from './components/device-dialog/device-dialog.component';
 import { FormGroupDirective, FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { ListaUsuariosModule } from './components/lista-usuarios/lista-usuarios.module';
 
 const conf: SocketIoConfig = { url:'http://64.23.129.36:3333', options:{transports:['websocket']}}
 
@@ -37,6 +38,7 @@ const conf: SocketIoConfig = { url:'http://64.23.129.36:3333', options:{transpor
   ],
   imports: [
     // modulos de compontentes, solo se importa el componente y desde aqui ya se importa el component
+    ListaUsuariosModule,
     NuevaContrasenaModule,
     RecuperarContrasenaModule,
     RegisterModule,

@@ -1,0 +1,19 @@
+<div>
+    <nb-card>
+        <nb-card-header>
+            <h1>Lista de usuarios</h1>
+        </nb-card-header>
+        <nb-card-body>
+            <table>
+                <tr>
+                    <td>ID</td>
+                    <td>Nombre de usuario</td>
+                </tr>
+                <tr *ngFor="let item of usuarios">
+                    <td>{{item.id}}</td>
+                    <td><button (click)="sacarID(item.id)">{{item.nickname}}</button></td>
+                </tr>
+            </table>
+        </nb-card-body>
+    </nb-card>
+</div>
