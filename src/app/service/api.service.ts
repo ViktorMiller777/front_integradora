@@ -34,7 +34,8 @@ interface HomeDispositivosResponse{
   providedIn: 'root'
 })
 export class ApiService {
-  url = 'http://64.23.129.36:3333'
+  // url = 'http://64.23.129.36:3333'
+  url = 'http://127.0.0.1:3333'
 
   constructor(private http:HttpClient, private galleta:CookieService) { }
 
@@ -108,5 +109,14 @@ export class ApiService {
     const token = this.galleta.get('token')
     const headers = new HttpHeaders().set('Authorization',`Bearer ${token}`)
     return this.http.post<any>(`${this.url}/api/sensors/report-by-sensor`, {dateBegin, dateFinish, sensorID, dispositiveID}, {headers})
+  }
+
+
+  //servicio para mostrar todos los usuarios existentes en mi base de datos
+  listaUsuarios():Observable<any>{
+    const token = this.galleta.get('token')
+    const headers = new HttpHeaders().set('Authorization',`Bearer ${token}`)
+    return this.http.get<any>(`${this.url}/api/users`,{headers})
+
   }
 }

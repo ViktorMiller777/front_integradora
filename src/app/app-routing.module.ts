@@ -11,9 +11,12 @@ import { VerificarCodigoComponent } from './components/verificar-codigo/verifica
 import { RecuperarContrasenaComponent } from './components/recuperar-contrasena/recuperar-contrasena.component';
 import { NuevaContrasenaComponent } from './components/nueva-contrasena/nueva-contrasena.component';
 import { MeminGuard } from './guards/memin.guard';
+import { ListaUsuariosComponent } from './components/lista-usuarios/lista-usuarios.component';
+import { SiriusGuard } from './guards/sirius.guard';
 
 const routes: Routes = [
   {path:'',component:HomeComponent,canActivate:[]},
+  {path:'lista-usuarios',component:ListaUsuariosComponent,canActivate:[SiriusGuard]},
   {path:'nueva-contrasena',component:NuevaContrasenaComponent,canActivate:[]},
   {path:'recuperar-contrasena',component:RecuperarContrasenaComponent,canActivate:[]},
   {path:'verificar',component:VerificarCodigoComponent,canActivate:[]},
