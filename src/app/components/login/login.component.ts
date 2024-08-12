@@ -34,9 +34,9 @@ export class LoginComponent {
         response => {
           console.log('login success', response)
           this.galleta.set('token',response.token.token)
-          if(response.token.role == 1){
+          if(response.role_id == 1){
             this.galleta.set('role',"admin")
-          }else if(response.token.role == 2){
+          }else if(response.role_id == 2){
             this.galleta.set('role',"user")
           }
           this.toastrService.success('Success','Inicio de sesion exitoso!')

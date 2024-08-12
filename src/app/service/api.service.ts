@@ -7,9 +7,9 @@ import { map } from 'rxjs';
 
 interface LoginResponse{
   token:{
-    token:string,
-    role:number
-  }
+    token:string
+  },
+  role_id:number
 }
 
 interface RegisterResponse{
