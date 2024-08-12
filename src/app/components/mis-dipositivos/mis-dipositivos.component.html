@@ -6,18 +6,27 @@
 <div class="box-mis-dispositivos" *ngIf="!loading">
     <nb-card class="box">
         <nb-card *ngFor="let item of dispositivo">
-            <nb-card-header><h2> Nombre del dispositivo: {{item.name}}</h2></nb-card-header>
+            <nb-card-header style="display: flex; justify-content: space-between; align-items: center;">
+              <h4> Dispositivo:  {{item.name}}</h4>
+              <h6 style="margin-right: 2rem;">S/N: {{item.DispositiveID}}</h6>
+            </nb-card-header>
             <nb-card-body>
                 <table nbTable>
                     <tbody>
                       <tr>
                         <td *ngFor="let sensor of item.Sensors">
-                          <button class="sbtn" nbButton status="success"  (click)="dispositivoClick(item.DispositiveID, sensor.sensorID)">Id:{{sensor.sensorID}} {{ sensor.sensorType }}</button>
-                        </td>
+                          <div *ngIf="sensor.sensorType!='Pantalla'">
+                            <button class="sbtn" nbButton status="success"  (click)="dispositivoClick(item.DispositiveID, sensor.sensorID)">{{ sensor.sensorType }} : {{sensor.sensorID}}</button>
+                          </div>
+                       </td>
                       </tr>
                       <tr>
                         <td *ngFor="let sensor of item.Sensors">
-                            <span>{{ sensor.data[0].value}} {{ sensor.unit }}</span>
+                          <div *ngIf="sensor.sensorType!='Pantalla'">
+                            <span *ngIf="sensor.data[0] == null">Sin datos</span>
+                            <span *ngIf="sensor.data[0] != null">{{ sensor.data[0].value}} {{ sensor.unit }}</span>
+
+                          </div>
                         </td>
                       </tr>
                     </tbody>

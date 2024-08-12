@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core'
+import { Component, OnDestroy, OnInit } from '@angular/core'
 import { Router } from '@angular/router'
 import { CookieService } from 'ngx-cookie-service'
+import { Observable, Subscription } from 'rxjs'
 import { ApiService } from 'src/app/service/api.service'
 import { SocketService } from 'src/app/service/socket.service'
 
@@ -9,7 +10,7 @@ import { SocketService } from 'src/app/service/socket.service'
   templateUrl: './mis-dipositivos.component.html',
   styleUrls: ['./mis-dipositivos.component.scss']
 })
-export class MisDipositivosComponent implements OnInit{
+export class MisDipositivosComponent implements OnInit, OnDestroy{
 
   dispositiveIDs: number[] = []
 
@@ -27,14 +28,21 @@ export class MisDipositivosComponent implements OnInit{
     userdID:number
   }] | null = null
   loading: boolean = true
+  listener: Subscription | null = null
 
   constructor(private apiService: ApiService, private galleta:CookieService, private router:Router, private socketexd: SocketService){}
+  ngOnDestroy(): void {
+    this.socketexd.disconnect()
+    if(this.listener!=null){
+      this.listener.unsubscribe()
+    }
+  }
 
   ngOnInit() {
+    this.socketexd.connect()
     this.apiService.getLastDataMejorado().subscribe(
       data => {
         this.dispositivo = data
-        console.log('dispositivos', data)
 
         this.apiService.HomeDispositivos().subscribe(
           data => {
@@ -44,27 +52,25 @@ export class MisDipositivosComponent implements OnInit{
               this.dispositivo!.forEach((dispositivo,i) => {
                 const idStr = dispositivo.DispositiveID
 
-                console.log('value mapeado',this.dispositivo!)
-                console.log('id dispositivos',idStr)
-
                 this.socketexd.emit('data:emit', {type:'WatchAllData', dispositiveID:idStr})
-                this.socketexd.listen('data:listen').subscribe(lastData => {
-                  console.log('datos recibidos WatchAllData:', lastData)
-                  
-                  const datos:[{
-                    sensorID: number
-                    data:{
-                      value:string
-                    }
-                  }] = lastData.data
-                  datos.forEach(data =>  {
-                    dispositivo!.Sensors.forEach((Sensor,o) => {
-                      if (Sensor.sensorID === data.sensorID){
-                        this.dispositivo![i].Sensors[o].data[0].value = data.data.value
+                this.listener = this.socketexd.listen('data:listen').subscribe(lastData => {
+                  if(lastData.type=="allData"){
+                    const datos:[{
+                      sensorID: number
+                      data:{
+                        value:string
                       }
-                    })
+                    }] = lastData.data
+                    datos.forEach(data =>  {
+                      dispositivo!.Sensors.forEach((Sensor,o) => {
+                        if (Sensor.sensorID === data.sensorID){
+                          this.dispositivo![i].Sensors[o].data[0].value = data.data.value
+                        }
+                      })
+                    }
+                    )
+
                   }
-                  )
                 })
               })
             }
@@ -86,5 +92,8 @@ export class MisDipositivosComponent implements OnInit{
     this.galleta.set('DispositiveID', DispositiveId.toString(),{expires:1})
     this.galleta.set('sensorID',sensorId.toString())
     this.router.navigate(['/sensor'])
+    if(this.listener!=null){
+      this.listener.unsubscribe()
+    }
   }  
 }

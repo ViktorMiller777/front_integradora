@@ -1,22 +1,39 @@
 import { Injectable } from '@angular/core';
 import { Socket } from 'ngx-socket-io';
-import { Observable } from 'rxjs';
+import { Observable, Subscription } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class SocketService {
+  private subscriptions: Subscription[] = [];
 
-  constructor(private socket: Socket) { }
+  constructor(private socket: Socket) {}
 
-
-
-
-  listen(eventName:string):Observable<any>{
-    return this.socket.fromEvent(eventName)
+  async connect() {
+    await this.socket.connect();
   }
 
-  emit(eventName:string, data:any){
-    this.socket.emit(eventName,data)
+  async disconnect() {
+    // Desuscribirse de todos los eventos antes de desconectar
+    this.unsubscribeAll();
+    await this.socket.disconnect();
+  }
+
+  listen(eventName: string): Observable<any> {
+    const observable = this.socket.fromEvent(eventName);
+    const subscription = observable.subscribe(); // Suscribirse al evento
+    this.subscriptions.push(subscription);
+    return observable;
+  }
+
+  emit(eventName: string, data: any) {
+    this.socket.emit(eventName, data);
+  }
+
+  private unsubscribeAll() {
+    // Desuscribirse de todas las suscripciones activas
+    this.subscriptions.forEach((subscription) => subscription.unsubscribe());
+    this.subscriptions = [];
   }
 }
