@@ -1,32 +1,55 @@
-.container{
+.verification-container {
     display: flex;
     justify-content: center;
     align-items: center;
+    height: 100%; /* Ocupa toda la altura de la ventana */
 }
-.box-card{
-    width: 40%;
+
+.verification-card {
+    width: 100%;
+    max-width: 500px; /* Ajusta según sea necesario */
+    border-radius: 12px; /* Bordes redondeados */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Sombra sutil */
+    padding: 20px; /* Espaciado interno */
+    background-color: #ffffff; /* Fondo blanco para el card */
 }
-.header{
-    display: flex;
-    justify-content: center;
-    align-items: center;
+
+.verification-header {
+    text-align: center;
+    margin-bottom: 20px;
 }
-.form{
+
+.verification-form {
     display: flex;
     flex-direction: column;
-    width: 100%;
-    gap:10px;
+    gap: 15px; /* Espaciado entre los elementos del formulario */
 }
-.box-input{
+
+.description {
+    text-align: center;
+    margin-bottom: 20px;
+    font-size: 16px; /* Tamaño de la fuente */
+    color: #555; /* Color del texto */
+}
+
+.form-group {
     display: flex;
-    justify-content: center;
     flex-direction: column;
-    align-items: center;
-    width: 100%;
+    gap: 5px; /* Espaciado entre la etiqueta y el campo */
 }
-input{
-    width: 100%;
+
+.form-control {
+    width: 100%; /* Asegura que el campo de entrada ocupe el 100% del contenedor */
+    padding: 12px; /* Espaciado interno */
+    border-radius: 8px; /* Bordes redondeados */
+    border: 1px solid #ddd; /* Color del borde */
+    box-sizing: border-box; /* Incluye padding y border en el ancho total */
+    font-size: 16px; /* Tamaño de la fuente */
 }
-button{
-    width: 70%;
+
+.submit-button {
+    width: 100%; /* Asegura que el botón ocupe el 100% del contenedor */
+    padding: 12px; /* Espaciado interno */
+    border-radius: 8px; /* Bordes redondeados */
+    font-size: 16px; /* Tamaño de la fuente */
 }

@@ -1,13 +1,23 @@
 .bar {
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    background: rgb(60, 202, 67);
+    background-color: #ffffff;
     width: 100%;
 }
-.footer{
+
+.footer {
     display: flex;
     justify-content: space-between;
     width: 100%;
+    padding: 1px 20px;
+    font-size: 14px;
+    line-height: 1.2;
+    background-color: transparent; /* Sin color de fondo */
 }
+
+.footer p {
+    margin: 0;
+}
+
 .nav-bar {
     display: flex;
     align-items: center;
@@ -16,9 +26,22 @@
     width: 100%;
 }
 
-.logo{
+.logo-container {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+}
+
+.logo {
     width: 62px;
     height: 62px;
+}
+
+.logo-text {
+    font-size: 24px; /* Tamaño del texto */
+    font-weight: bold; /* Negrita */
+    margin-left: 10px; /* Espaciado entre el logo y el texto */
+    color: #333; /* Color del texto */
 }
 
 .nav-actions {
@@ -26,14 +49,23 @@
     align-items: center;
 }
 
-.custom-select {
-    margin-right: 10px;
-    padding: 5px;
-    border-radius: 5px;
-    border: 1px solid #ccc;
-}
-.select{
-    margin-right: 25px;
+.nav-actions button {
+    background: none; /* Sin color de fondo */
+    border: none; /* Sin borde */
+    color: #000000; /* Color del texto */
+    font-size: 0.9rem; /* Tamaño de la fuente */
+    margin: 0 10px; /* Espaciado horizontal */
+    padding: 10px; /* Espaciado interno */
+    cursor: pointer; /* Cursor de puntero */
+    text-transform: uppercase; /* Letras mayúsculas */
+    transition: color 0.3s, background-color 0.3s; /* Transiciones suaves */
 }
 
+.nav-actions button:hover {
+    color: #f0f0f0; /* Color de texto en hover */
+    background-color: rgba(255, 255, 255, 0.1); /* Fondo ligero en hover */
+}
 
+.nav-actions button:focus {
+    outline: none; /* Sin borde al hacer foco */
+}

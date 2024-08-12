@@ -1,40 +1,76 @@
 <div class="container">
     <nb-card class="box">
         <nb-card class="table-sensors">
-            <nb-card-header class="header">
-                <h2>Datos de sensores</h2>
-                <nb-select class="select" placeholder="Filtrar por fecha" (selectedChange)="filtrarPorFecha($event)">
-                    <nb-option value="1">Por Semana</nb-option>
-                    <nb-option value="2">Por Dia</nb-option>
-                    <nb-option value="3">Ultimo 1 hora</nb-option>
-                    <nb-option value="4">Ultimo 30 min</nb-option>
-                </nb-select>
-                <nb-select class="select" placeholder="Filtrar por sensor">
-                    <nb-option (click)="sensorClick(item)" *ngFor="let item of sensor" [value]="item.id" >ID:{{item.id}}  Tipo:{{item.type}}</nb-option>
-                </nb-select>
+            <nb-card-header >
+                    <div style="display: flex; justify-content: space-between;">
+                        <button nbButton ghost [routerLink]="['/mis-dispositivos']"><nb-icon icon="arrow-back-outline"></nb-icon></button>
+                        <h2 style="display: flex; margin-right: 2rem;">Datos de sensores</h2>
+                        <div></div>
+                    </div>
+                    <div class="selects">
+                        <nb-select class="select" placeholder="Filtrar por fecha" [(ngModel)]="selectedDateFilter" (selectedChange)="filtrarPorFecha($event)">
+                            <nb-option value="6">Por Siempre</nb-option>
+                            <nb-option value="5">Ultimo Mes</nb-option>
+                            <nb-option value="4">Ultima Semana</nb-option>
+                            <nb-option value="3">Ultimo Dia</nb-option>
+                            <nb-option value="2">Ultima hora</nb-option>
+                            <nb-option value="1">Ultimos 30 min</nb-option>
+                        </nb-select>
+                        <nb-select class="select" [(ngModel)]="selectedSensor" placeholder="Mostrar sensor">
+                            <nb-option (click)="sensorClick(item)"  *ngFor="let item of sensor" [value]="item.id" >
+                                <div *ngIf="item.type!='Pantalla'">
+                                    {{item.type}} : {{item.id}}
+                                </div>
+                            </nb-option>
+                        </nb-select>
+                        <nb-select class="select" placeholder="Numero de elementos" [(ngModel)]="itemsPerPage" (selectedChange)="paginateItems()">
+                            <nb-option [value]=10>Mostrar 10</nb-option>
+                            <nb-option [value]=20>Mostrar 20</nb-option>
+                            <nb-option [value]=30>Mostrar 30</nb-option>
+                            <nb-option [value]=50>Mostrar 50</nb-option>
+                            <nb-option [value]=100>Mostrar 100</nb-option>
+                            <nb-option [value]=500>Mostrar 500</nb-option>
+                        </nb-select>
+                        <nb-select class="select" placeholder="Ordenar por" [(ngModel)]="orderBy" (selectedChange)="ordenar($event)">
+                            <nb-option [value]=1>Más reciente</nb-option>
+                            <nb-option [value]=2>Más antiguo</nb-option>
+                        </nb-select>
+                    </div>
             </nb-card-header>
-            <nb-card-body>
-                <table>
+            <nb-card-body style="display: flex; justify-content: center; flex-direction: column; align-items: center;">
+                <table style="font-size: 1.2rem; min-width: fit-content; width: 65%; min-width: 32rem;">
                     <thead>
-                        <tr>
+                        <tr> 
+                            <th style="padding: 0.3rem; ">Fecha</th>
                             <th>Valor</th>
-                            <th>Unidad</th>
-                            <th>Fecha</th>
                         </tr>
                     </thead>
-                    <tbody>
-                        <div *ngIf="loading" class="loading">
-                            <h3>Cargando datos del sensor...</h3>
-                            <p>Esto puede tardar unos segundos.</p>
-                            <nb-spinner *ngIf="loading"></nb-spinner>
-                        </div>
-                        <tr *ngFor="let item of reportTime">
-                            <td>{{item.value}}</td>
-                            <td>{{item.identifier}}</td>
-                            <td>{{item.timestamp}}</td>
+                    <tbody  style="font-size: 1.05rem; font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;">
+                        <tr style="height: 1.7rem;" *ngFor="let item of paginatedItems">
+                            <td>{{item.timestamp}} </td>
+                            <td style="width: 60%; ">{{item.value}} {{unit}}</td>
+
+                        </tr>
+                        <tr *ngIf="paginatedItems.length==0">
+                            <td>Sin datos</td>
+                            <td style="width: 60%; ">Sin datos</td>
                         </tr>
                     </tbody>
                 </table>
+                <div *ngIf="loading" class="loading">
+                    <h3>Cargando datos...</h3>
+                    <p>Esto puede tardar unos segundos.</p>
+                    <nb-spinner *ngIf="loading"></nb-spinner>
+                </div>
+                <div class="pagination-controls">
+                    <button nbButton (click)="changePage(1)" [disabled]="currentPage === 1">Primera</button>
+                    <button nbButton (click)="changePage(currentPage - 1)" [disabled]="currentPage === 1">Anterior</button>
+                    
+                    <span>Página {{ currentPage }}</span>
+                    
+                    <button nbButton (click)="changePage(currentPage + 1)" [disabled]="currentPage === totalPages()">Siguiente</button>
+                    <button nbButton (click)="changePage(totalPages())" [disabled]="currentPage === totalPages()">Última</button>
+                  </div>
             </nb-card-body>
         </nb-card>
     </nb-card>
