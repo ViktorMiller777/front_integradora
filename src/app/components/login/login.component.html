@@ -1,27 +1,24 @@
-<div class="container">
-    <nb-card class="card">
-        <nb-card-header class="header">
-            <h1>Iniciar Sesion</h1>
+<div class="login-container">
+    <nb-card class="login-card">
+        <nb-card-header class="login-header">
+            <h1>Iniciar Sesión</h1>
         </nb-card-header>
         <nb-card-body>
-            <form class="form" [formGroup]="loginForm" (ngSubmit)="login()">
-                <div class="input-box">
-                    <label for="">Email</label>
-                    <input nbInput placeholder="Ingresa tu email" formControlName="uid">
+            <form class="login-form" [formGroup]="loginForm" (ngSubmit)="login()">
+                <div class="form-group">
+                    <label for="email">Email</label>
+                    <input id="email" class="form-control" placeholder="Ingresa tu email" formControlName="uid">
                 </div>
-                <div class="input-box">
-                    <label for="">Contraseña </label>
-                    <input nbInput type="password" placeholder="Ingresa tu contraseña" formControlName="password">
+                <div class="form-group">
+                    <label for="password">Contraseña</label>
+                    <input id="password" type="password" class="form-control" placeholder="Ingresa tu contraseña" formControlName="password">
+                    <a [routerLink]="['/recuperar-contrasena']" class="link">Recuperar contraseña</a>
                 </div>
-                <div class="input-box">
-                    <button type="submit" nbButton status="success" [disabled]="!loginForm.valid">Iniciar sesion</button>
+                <div class="form-group">
+                    <button type="submit" nbButton status="success" [disabled]="!loginForm.valid" class="submit-button">Iniciar sesión</button>
                 </div>
-                <div class="footer">
-                    <a [routerLink]="['/recuperar-contrasena']">Recuperar contraseña</a>
-                    <a [routerLink]="['/register']">Crear cuenta</a>
-                </div>
-                <div class="verificar">
-                    <a [routerLink]="['/verificar']">Verificar cuenta</a>
+                <div class="form-group">
+                    <button type="button" nbButton status="basic" class="create-account-button" [routerLink]="['/register']">Crear cuenta</button>
                 </div>
             </form>
         </nb-card-body>
