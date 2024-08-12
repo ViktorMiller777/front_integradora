@@ -34,10 +34,10 @@ export class LoginComponent {
         response => {
           console.log('login success', response)
           this.galleta.set('token',response.token.token)
+          this.galleta.set('role',"user")
           if(response.role_id == 1){
             this.galleta.set('role',"admin")
           }else if(response.role_id == 2){
-            this.galleta.set('role',"user")
           }
           this.toastrService.success('Success','Inicio de sesion exitoso!')
           this.router.navigate(['/'])
