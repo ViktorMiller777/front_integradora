@@ -16,7 +16,7 @@ import { SiriusGuard } from './guards/sirius.guard';
 
 const routes: Routes = [
   {path:'',component:HomeComponent,canActivate:[]},
-  {path:'lista-usuarios',component:ListaUsuariosComponent,canActivate:[SiriusGuard]},
+  {path:'lista-usuarios',component:ListaUsuariosComponent,canActivate:[SiriusGuard,MeminGuard]},
   {path:'nueva-contrasena',component:NuevaContrasenaComponent,canActivate:[]},
   {path:'recuperar-contrasena',component:RecuperarContrasenaComponent,canActivate:[]},
   {path:'verificar',component:VerificarCodigoComponent,canActivate:[]},

@@ -35,7 +35,7 @@ interface HomeDispositivosResponse{
 })
 export class ApiService {
   // url = 'http://64.23.129.36:3333'
-  url = 'http://127.0.0.1:3333'
+  url = 'http://64.23.129.36:3333'
 
   constructor(private http:HttpClient, private galleta:CookieService) { }
 
@@ -73,7 +73,7 @@ export class ApiService {
   getLastDataMejoradoPorID(userID:string):Observable<any>{
     const token = this.galleta.get('token')
     const headers = new  HttpHeaders().set('Authorization',`Bearer ${token}`)
-    return this.http.get<any>(`${this.url}/api/dispositives/show/${userID}`,{headers})
+    return this.http.get<any>(`${this.url}/api/dispositives/adminShow/${userID}`,{headers})
   }
 
   crearDispositivo(data:any):Observable<any>{

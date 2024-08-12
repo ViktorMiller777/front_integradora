@@ -22,7 +22,7 @@ export class SiriusGuard implements CanActivate {
 
     const role = this.galleta.get('role');
   
-    if (role === '1') {
+    if (role === 'admin') {
       return true;
     }
   
