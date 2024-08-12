@@ -1,9 +1,9 @@
 <nb-layout>
     <nb-layout-header fixed class="bar">
         <div class="nav-bar">
-            <div class="logo-container">
-                <img class="logo" src="assets/img/Healthy_Logo_Heart.png" [routerLink]="['/']">
-                <span class="logo-text">Healthy</span>
+            <div class="logo-container" [routerLink]="['/']">
+                <img class="logo" src="assets/img/Healthy_Logo_Heart.png" >
+                <span class="logo-text" >Healthy</span>
             </div>
             <div class="nav-actions">
                 <button *ngIf="isLoggedIn()" nbButton [routerLink]="['/mis-dispositivos']">Mis Dispositivos</button>

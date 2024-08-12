@@ -29,6 +29,7 @@
 .logo-container {
     display: flex;
     align-items: center;
+    cursor: pointer;
 }
 
 .logo {
@@ -52,7 +53,7 @@
     background: none; /* Sin color de fondo */
     border: none; /* Sin borde */
     color: #000000; /* Color del texto */
-    font-size: 16px; /* Tamaño de la fuente */
+    font-size: 0.9rem; /* Tamaño de la fuente */
     margin: 0 10px; /* Espaciado horizontal */
     padding: 10px; /* Espaciado interno */
     cursor: pointer; /* Cursor de puntero */

@@ -38,11 +38,13 @@ export class LoginComponent {
           this.router.navigate(['/'])
         },error => {
           if(error.status === 500){
-            this.toastrService.danger('Error','Contraseña o email incorrectos')
+            this.toastrService.danger('Ocurrio un error, intenta de nuevo mas tarde','Error')
           }if (error.status === 400) {
-            this.toastrService.danger('Error','Ocurrio un error, intenta de nuevo mas tarde')
+            this.toastrService.warning('Contraseña o email incorrectos','Error')
           }if (error.status === 401) {
-            this.toastrService.danger('Error','Primero verifica tu cuenta para iniciar sesion')
+            this.toastrService.warning('Primero verifica tu cuenta para iniciar sesion','Error')
+            this.router.navigate(['/verificar'])
+
           } else {
           }
         }

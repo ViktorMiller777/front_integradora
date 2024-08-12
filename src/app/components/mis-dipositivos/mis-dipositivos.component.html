@@ -1,13 +1,18 @@
 <div *ngIf="loading" class="loading">
   <h1>Cargando dispositivos...</h1>
-  <p>Esto puede tardar segun los dispositivos que tengas, la paciencia es una virtud</p>
+  <p>Este proceso puede tardar unos segundos</p>
   <nb-spinner *ngIf="loading"></nb-spinner>
 </div>
 <div class="box-mis-dispositivos" *ngIf="!loading">
     <nb-card class="box">
+      <nb-card-body *ngIf="dispositivo==null" style="display: flex; justify-content: center;">
+        <h4>Aún no tienes dispositivos registrados</h4>
+      </nb-card-body>
+
+
         <nb-card *ngFor="let item of dispositivo">
             <nb-card-header style="display: flex; justify-content: space-between; align-items: center;">
-              <h4> Dispositivo:  {{item.name}}</h4>
+              <h5> Dispositivo:  {{item.name}}</h5>
               <h6 style="margin-right: 2rem;">S/N: {{item.DispositiveID}}</h6>
             </nb-card-header>
             <nb-card-body>
