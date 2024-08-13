@@ -31,6 +31,7 @@ export class MisDipositivosComponent implements OnInit, OnDestroy{
   }] | null = null
   loading: boolean = true
   listener: Subscription | null = null
+  role=this.galleta.get('role')
 
 
   constructor(private dialogService: NbDialogService,private apiService: ApiService, private galleta:CookieService, private router:Router, private socketexd: SocketService){}
@@ -43,11 +44,18 @@ export class MisDipositivosComponent implements OnInit, OnDestroy{
 
   ngOnInit() {
     this.socketexd.connect()
-    let role = this.galleta.get('role')
-    if(role == 'admin'){
+    if(this.role == 'admin'){
         let userID = this.galleta.get('userID')
         this.apiService.getLastDataMejoradoPorID(userID).subscribe( data =>{
-          this.dispositivo = data
+          
+          if(data.message!=null){
+            this.dispositivo = null
+            this.loading = false
+            return
+          }else{
+            this.dispositivo = data
+
+          }
 
           this.apiService.HomeDispositivos().subscribe(
             data => {
@@ -86,8 +94,12 @@ export class MisDipositivosComponent implements OnInit, OnDestroy{
               this.loading = false
             }
           )
+        },
+        error => {
+          this.loading = false
         }
         )
+        
     }else{
       this.apiService.getLastDataMejorado().subscribe(
         data => {
@@ -138,6 +150,7 @@ export class MisDipositivosComponent implements OnInit, OnDestroy{
         }
       )
     }
+    
   }
 
   dispositivoClick(DispositiveId: number, sensorId: number) {

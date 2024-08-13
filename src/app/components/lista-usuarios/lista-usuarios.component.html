@@ -7,7 +7,8 @@
             
         <nb-card *ngFor="let item of usuarios">
             <nb-card-header style="display: flex; justify-content: space-between; align-items: center;">
-                <button nbButton style="display: flex; justify-content: space-between; align-items: center; " outline status="success" (click)="sacarID(item.id)">                <h5> Usuario:  {{item.nickname}}</h5>
+                <button nbButton style="display: flex; justify-content: space-between; align-items: center; " outline status="success" (click)="sacarID(item.id)">                
+                    <h5> Usuario:  {{item.nickname}}</h5>
                     <h6 style="margin-right: 2rem; width: 100%;">S/N: {{item.id}}</h6></button>
 
             </nb-card-header>

@@ -6,11 +6,13 @@
 <div class="box-mis-dispositivos" *ngIf="!loading">
     <nb-card class="box">
       <nb-card-header style="display: flex; justify-content: space-between; margin-bottom: 1rem;">
-        <h4>Mis Dispositivos</h4>
-        <button nbButton fullWidth style="max-width: 25rem;" hero size="small" status="success" (click)="openDialog()"><nb-icon icon="plus"></nb-icon>  Registrar Dispositivo</button>
+        <button nbButton ghost *ngIf="role=='admin'" [routerLink]="['/lista-usuarios']"><nb-icon icon="arrow-back-outline"></nb-icon></button>
+        <h4 *ngIf="role=='user'">Mis Dispositivos</h4>
+        <h4 *ngIf="role=='admin'">Dispositivos de usuario</h4>
+        <button nbButton *ngIf="role=='user'" fullWidth style="max-width: 25rem;" hero size="small" status="success" (click)="openDialog()"><nb-icon icon="plus"></nb-icon>  Registrar Dispositivo</button>
       </nb-card-header>
       <nb-card-body *ngIf="dispositivo==null"  style="display: flex; justify-content: center; ">
-        <h3 >Aún no tienes dispositivos registrados</h3>
+        <h3>Aún no tienes dispositivos registrados</h3>
       </nb-card-body>
 
 
