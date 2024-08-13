@@ -18,10 +18,15 @@ export class AppComponent {
     this.galleta.delete('token');
     this.galleta.delete('DispositiveID');
     this.galleta.delete('sensorID');
+    this.galleta.delete('role');
     this.router.navigate(['/login']);
   }
 
   isLoggedIn(): boolean {
     return this.galleta.check('token');
+  }
+
+  isRole(role: string): boolean {
+    return this.galleta.get('role') === role;
   }
 }
